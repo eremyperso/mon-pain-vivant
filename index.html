@@ -120,6 +120,7 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .mainnav{display:flex;gap:28px;flex:1}
 .mainnav a{cursor:pointer;font:600 15px var(--font-sans);text-decoration:none;color:var(--text-1)}
 .mainnav a:hover{text-decoration:underline;text-underline-offset:6px}
+.mainnav a.active{text-decoration:underline;text-underline-offset:6px}
 @media(max-width:760px){.mainnav{display:none}}
 .mobilemenu{display:none;flex-direction:column;gap:18px;padding:20px;border-bottom:var(--border-hair);background:var(--surface-card)}
 .mobilemenu.open{display:flex}
@@ -153,7 +154,7 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .section-head h2{font:var(--type-h2);margin:0}
 
 /* ============ TABS / TAGS ============ */
-.tabs{display:flex;gap:28px;border-bottom:var(--border-hair);overflow-x:auto}
+.tabs{display:flex;gap:28px;flex-wrap:wrap;border-bottom:var(--border-hair)}
 .tab{position:relative;padding:12px 0 14px;border:0;background:none;font:600 15px var(--font-sans);color:var(--text-2);cursor:pointer;white-space:nowrap}
 .tab:hover{color:var(--text-1)}
 .tab.active{color:var(--text-1)}
@@ -203,13 +204,45 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .stepper button:disabled{color:var(--flour-400);cursor:not-allowed}
 .stepper output{min-width:32px;text-align:center;font:700 15px var(--font-sans);font-variant-numeric:tabular-nums}
 
-/* ============ STEPS / CARDS ============ */
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-@media(max-width:760px){.steps{grid-template-columns:1fr}}
+/* ============ CARDS ============ */
 .stepcard{background:var(--surface-card);border:var(--border-hair);border-radius:var(--radius-2);padding:28px}
-.stepcard .num{font:400 40px/1 var(--font-display);color:var(--accent)}
 .stepcard h3{font:var(--type-h3);margin:16px 0 8px}
 .stepcard p{margin:0;color:var(--text-2)}
+
+/* ============ FARINES ============ */
+.farine-row{display:grid;grid-template-columns:260px 1fr;gap:40px;padding:28px 0;border-top:var(--border-perforated)}
+@media(max-width:760px){.farine-row{grid-template-columns:1fr;gap:12px}}
+.farine-row h3{font:var(--type-h3);margin:0}
+.farine-row p{color:var(--text-2);font-size:15px;margin:8px 0 0}
+.farine-related{display:flex;gap:10px;flex-wrap:wrap;align-content:flex-start}
+.farine-chip{cursor:pointer;display:flex;gap:10px;align-items:center;padding:8px 14px 8px 8px;border:var(--border-hair);border-radius:var(--radius-2);background:var(--surface-card);text-decoration:none;color:var(--text-1)}
+.farine-chip .thumb{width:40px;height:40px;border-radius:var(--radius-1);background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px);overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;font-size:18px}
+.farine-chip .thumb img{width:100%;height:100%;object-fit:cover}
+.farine-chip b{display:block;font-weight:600;font-size:15px}
+.farine-chip span.price{display:block;font-size:13px;color:var(--text-3)}
+
+/* ============ CHECKOUT FORM ============ */
+.checkout-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start;margin-top:8px}
+@media(max-width:900px){.checkout-grid{grid-template-columns:1fr}}
+.ticket-aside{position:sticky;top:140px;background:var(--surface-card);border:var(--border-perforated);padding:24px}
+@media(max-width:900px){.ticket-aside{position:static}}
+.checkout-steps{display:flex;gap:0;list-style:none;padding:0;margin:0 0 36px;border-bottom:var(--border-hair)}
+.checkout-steps li{flex:1;padding:0 0 14px;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:8px;align-items:center;font:600 13.5px var(--font-sans);color:var(--text-3)}
+.checkout-steps li.active{color:var(--text-1);border-bottom-color:var(--text-1)}
+.checkout-steps li.done{color:var(--text-1)}
+.checkout-steps .num{width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11px;background:var(--surface-sunken);color:var(--text-3);flex:none}
+.checkout-steps li.active .num{background:var(--umber-900);color:var(--flour-50)}
+.checkout-steps li.done .num{background:var(--success);color:var(--flour-50)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label{font:600 13.5px var(--font-sans);color:var(--text-1)}
+.field input{height:var(--control-h-md);padding:0 14px;background:var(--surface-card);border:1px solid var(--border-2);border-radius:var(--radius-1);font:400 15px var(--font-sans);color:var(--text-1);width:100%}
+.field input:focus{outline:none;border-color:var(--stamp);box-shadow:0 0 0 3px var(--stamp-soft)}
+.field .hint{font-size:12.5px;color:var(--text-3)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+.ticket{border:var(--border-perforated);padding:16px;margin-bottom:20px}
+.line{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
+.total-row{display:flex;justify-content:space-between;border-top:var(--border-hair);margin-top:10px;padding-top:10px;font-weight:700}
 
 /* ============ RETRAIT ============ */
 .retrait{margin-top:72px;background:var(--surface-sunken);padding:56px 0}
@@ -230,8 +263,8 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .dialog__foot{display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:var(--border-perforated)}
 .quickview{max-width:820px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
 @media(max-width:700px){.quickview{grid-template-columns:1fr;max-height:92vh;overflow-y:auto}}
-.quickview .qv-img{aspect-ratio:4/3;background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px)}
-.quickview .qv-img img{width:100%;height:100%;object-fit:cover;display:block}
+.quickview .qv-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px)}
+.quickview .qv-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .quickview .qv-body{padding:28px;display:flex;flex-direction:column;overflow-y:auto}
 .quickview .qv-close{position:absolute;top:14px;right:14px}
 
@@ -244,8 +277,8 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .cart-items{flex:1;overflow:auto;padding:8px 24px}
 .cart-empty{color:var(--text-2);font:var(--type-lede);margin-top:32px}
 .cart-line{display:grid;grid-template-columns:64px 1fr auto;gap:14px;padding:16px 0;border-bottom:var(--border-perforated);align-items:start}
-.cart-line .thumb{aspect-ratio:1/1;border-radius:var(--radius-1);background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px);overflow:hidden}
-.cart-line .thumb img{width:100%;height:100%;object-fit:cover}
+.cart-line .thumb{position:relative;aspect-ratio:1/1;border-radius:var(--radius-1);background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px);overflow:hidden}
+.cart-line .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cart-line .name{font:400 18px/1.2 var(--font-serif)}
 .cart-line .meta{font-size:13px;color:var(--text-3);margin:4px 0 10px}
 .cart-line .amount{font-weight:700;font-variant-numeric:tabular-nums}
@@ -280,23 +313,25 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 <header>
   <div class="headrow">
     <button class="iconbtn menubtn" id="menuBtn" aria-label="Menu"></button>
-    <a class="wordmark" onclick="scrollToId('top')"><span class="name" id="brandName">Au Temps du Pain</span><span class="sub" id="brandSub">Pain au levain naturel</span></a>
-    <nav class="mainnav">
-      <a onclick="scrollToId('boutique')">Nos produits</a>
-      <a onclick="scrollToId('retrait')">Retrait</a>
-      <a onclick="scrollToId('contact')">Contact</a>
+    <a class="wordmark" onclick="showView('home');scrollToId('top')"><span class="name" id="brandName">Au Temps du Pain</span><span class="sub" id="brandSub">Pain au levain naturel</span></a>
+    <nav class="mainnav" id="mainNav">
+      <a data-view="home" onclick="showView('home');scrollToId('boutique')">Nos produits</a>
+      <a data-view="farines" onclick="showView('farines')">Nos farines</a>
+      <a onclick="showView('home');scrollToId('retrait')">Retrait</a>
+      <a onclick="showView('home');scrollToId('contact')">Contact</a>
     </nav>
     <button class="iconbtn" id="cartBtn" aria-label="Panier"></button>
   </div>
   <nav class="mobilemenu" id="mobileMenu">
-    <a onclick="scrollToId('boutique');closeMenu()">Nos produits</a>
-    <a onclick="scrollToId('retrait');closeMenu()">Retrait</a>
-    <a onclick="scrollToId('contact');closeMenu()">Contact</a>
+    <a onclick="showView('home');scrollToId('boutique');closeMenu()">Nos produits</a>
+    <a onclick="showView('farines');closeMenu()">Nos farines</a>
+    <a onclick="showView('home');scrollToId('retrait');closeMenu()">Retrait</a>
+    <a onclick="showView('home');scrollToId('contact');closeMenu()">Contact</a>
   </nav>
 </header>
 
 <div id="top"></div>
-<div class="wrap">
+<div class="wrap" id="view-home">
 
   <section class="hero">
     <div>
@@ -327,15 +362,18 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     </div>
   </section>
 
-  <section class="section">
-    <h2 style="font:var(--type-h2);margin:0 0 32px">Réserver en trois temps</h2>
-    <div class="steps">
-      <div class="stepcard"><div class="num">I</div><h3>Choisissez</h3><p>Parcourez nos pains et douceurs, ajoutez-les à votre panier.</p></div>
-      <div class="stepcard"><div class="num">II</div><h3>Envoyez votre commande</h3><p>Un e-mail récapitulatif part directement vers le fournil, sans créer de compte.</p></div>
-      <div class="stepcard"><div class="num">III</div><h3>Récupérez-la</h3><p>Sur place, aux jours et horaires indiqués. Paiement à l'enlèvement.</p></div>
-    </div>
-  </section>
 </div>
+
+<div class="wrap" id="view-farines" style="display:none;padding-top:48px">
+  <div class="label" style="color:var(--stamp);margin-bottom:10px">Meunier de Versailles</div>
+  <h1 style="font:var(--type-h1);margin:0 0 12px">Nos farines et graines</h1>
+  <p class="lede" style="max-width:620px;margin:0 0 40px">Toutes les farines et graines de nos pains viennent du Meunier de Versailles. Voici, pour chacune, les produits où vous la retrouvez.</p>
+  <div id="farinesContent">
+    <div class="state"><div class="spin"></div>Chargement des farines…</div>
+  </div>
+</div>
+
+<div class="wrap" id="view-checkout" style="display:none;padding-top:48px"></div>
 
 <section class="retrait" id="retrait">
   <div class="wrap">
@@ -372,6 +410,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <div class="foot-col">
       <span class="label">Produits</span>
       <a onclick="scrollToId('boutique')">Tous les produits</a>
+      <a onclick="scrollToId('farines')">Nos farines</a>
       <a onclick="scrollToId('retrait')">Retrait</a>
     </div>
     <div class="foot-col">
@@ -414,7 +453,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <div class="cart-summary" id="cartSummary" style="display:none">
       <div class="row"><span>Sous-total TTC</span><span class="total" id="cartTotal">0,00 €</span></div>
       <div class="note">Paiement sur place à l'enlèvement.</div>
-      <button class="btn btn--primary btn--block btn--lg" id="orderBtn" onclick="passCommande()">Envoyer ma commande <span class="icon" style="width:18px;height:18px;--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/arrow-right.svg')"></span></button>
+      <button class="btn btn--primary btn--block btn--lg" id="orderBtn" onclick="openCheckout()">Envoyer ma commande <span class="icon" style="width:18px;height:18px;--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/arrow-right.svg')"></span></button>
       <div style="text-align:center;margin-top:10px"><button class="btn btn--ghost btn--sm" onclick="openConfirm()">Vider le panier</button></div>
     </div>
   </aside>
@@ -427,6 +466,11 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 // Feuille Google Sheets publiée en CSV (Fichier > Partager > Publier sur le web > CSV)
 // Colonnes attendues : nom, categorie, prix, poids, stock (in/low/out), description, allergenes, conservation, tags, photo
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=0";
+// Onglet "Farines" du même Google Sheet (créer l'onglet, puis remplacer gid=... par
+// le gid visible dans l'URL une fois cet onglet sélectionné). Colonnes attendues :
+// nom, description, tag_produit (doit correspondre exactement à une valeur de la
+// colonne "tags" des produits, pour relier la farine aux produits qui l'utilisent), photo (optionnel)
+const SHEET_FARINES_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=2039655305";
 const CONTACT_EMAIL = "eremy.perso@gmail.com";
 const BRAND_NAME = "Au Temps du Pain";
 const BRAND_SUB  = "Pain au levain naturel";
@@ -612,6 +656,50 @@ function applyFilters(){
   renderGrid(list);
 }
 
+/* ================= FARINES ================= */
+let allFlours = [];
+function normalizeFarine(rows){
+  return rows.map(r => ({
+    nom: r.nom,
+    description: r.description || "",
+    tagProduit: (r.tag_produit || r.tagproduit || r.tag || "").trim(),
+    photo: driveToImg(r.photo || "")
+  }));
+}
+function renderFarines(){
+  const box = document.getElementById("farinesContent");
+  if (!allFlours.length) { box.innerHTML = '<div class="state">Aucune farine renseignée pour le moment.</div>'; return; }
+  box.innerHTML = allFlours.map(f => {
+    const related = f.tagProduit ? allProducts.filter(p => p.tags.includes(f.tagProduit)) : [];
+    const emoji = getEmoji(f.nom, "farine");
+    const thumb = f.photo
+      ? '<img src="'+f.photo+'" alt="'+f.nom+'" referrerpolicy="no-referrer" onerror="this.remove()">'
+      : emoji;
+    return '<div class="farine-row">'
+      + '<div><h3>'+f.nom+'</h3>'+(f.description?'<p>'+f.description+'</p>':'')+'</div>'
+      + '<div class="farine-related">'
+      +   '<div class="farine-chip" style="cursor:default"><div class="thumb">'+thumb+'</div><b>'+f.nom+'</b></div>'
+      +   related.map(p => '<a class="farine-chip" onclick="showView(\'home\');scrollToId(\'boutique\');openQuickView(\''+p.id+'\')"><div class="thumb">'+(p.photo?'<img src="'+p.photo+'" alt="'+p.nom+'" referrerpolicy="no-referrer" onerror="this.remove()">':getEmoji(p.nom,p.categorie))+'</div><span><b>'+p.nom+'</b><span class="price">'+fmt(p.prix)+'</span></span></a>').join("")
+      + '</div>'
+      + '</div>';
+  }).join("");
+}
+async function loadFarines(){
+  const box = document.getElementById("farinesContent");
+  if (SHEET_FARINES_CSV_URL.indexOf("REMPLACER") === 0) {
+    box.innerHTML = '<div class="state">Onglet "Farines" non configuré.<br><small style="color:var(--text-3);margin-top:8px;display:block">Créez un onglet dans le Google Sheet avec les colonnes nom, description, tag_produit, photo, puis renseignez SHEET_FARINES_CSV_URL dans le code.</small></div>';
+    return;
+  }
+  try {
+    const res = await fetch(SHEET_FARINES_CSV_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("Réponse réseau incorrecte");
+    allFlours = normalizeFarine(parseCSV(await res.text()));
+    renderFarines();
+  } catch (e) {
+    box.innerHTML = '<div class="state">❌ Impossible de charger les farines<br><small style="color:var(--text-3);margin-top:8px;display:block">'+e.message+'</small></div>';
+  }
+}
+
 /* ================= QUICK VIEW ================= */
 function openQuickView(id){
   const p = allProducts.find(x => x.id === id);
@@ -711,21 +799,30 @@ function toggleCart(){ document.getElementById("cartScrim").classList.toggle("op
 function openConfirm(){ document.getElementById("confirmScrim").classList.remove("hidden"); }
 function closeConfirm(){ document.getElementById("confirmScrim").classList.add("hidden"); }
 
-function passCommande(){
+function passCommande(buyer){
   const items = Object.values(cart);
   if (!items.length) return false;
   const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
   const nb = items.reduce((s,i) => s + i.qty, 0);
 
   const lignes = items.map(i => "  - " + i.p.nom + " x" + i.qty + " = " + fmt(i.p.prix * i.qty)).join("\n");
+  const coord = buyer ? (
+    "Demandeur : " + buyer.prenom + " " + buyer.nom + "\n"
+    + "E-mail : " + buyer.email + "\n"
+    + (buyer.tel ? "Téléphone : " + buyer.tel + "\n" : "")
+    + (buyer.jour ? "Jour de retrait souhaité : " + buyer.jour + "\n" : "")
+    + (buyer.creneau ? "Créneau souhaité : " + buyer.creneau + "\n" : "")
+    + "\n"
+  ) : "";
   const body = "Bonjour,\n\nJe souhaite réserver les produits suivants :\n\n"
     + lignes
     + "\n\n--------------------------------\n"
+    + coord
     + "Nombre de produits : " + nb + "\n"
     + "TOTAL : " + fmt(total) + "\n"
     + "--------------------------------\n\n"
     + "Merci de me confirmer la disponibilité et les modalités de retrait.\n\nCordialement";
-  const subject = "Commande " + BRAND_NAME + " - " + nb + " produit" + (nb>1?"s":"") + " - " + fmt(total);
+  const subject = "Commande " + BRAND_NAME + " - " + (buyer ? buyer.prenom + " " + buyer.nom + " - " : "") + nb + " produit" + (nb>1?"s":"") + " - " + fmt(total);
   const mailto = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 
   const a = document.createElement("a");
@@ -734,6 +831,135 @@ function passCommande(){
   a.click();
   document.body.removeChild(a);
   return false;
+}
+
+/* ================= CHECKOUT — page pleine (Remise / Fiche demandeur / Récapitulatif) ================= */
+let checkoutStep = 0;
+let checkoutDone = false;
+let buyer = { prenom:"", nom:"", email:"", tel:"", jour:"", creneau:"", news:false };
+const CHECKOUT_LABELS = ["Remise", "Fiche demandeur", "Récapitulatif"];
+
+function formatDateFR(iso){
+  if (!iso) return "";
+  const d = new Date(iso + "T00:00:00");
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString("fr-FR", { weekday:"long", day:"numeric", month:"long" });
+}
+
+function openCheckout(){
+  if (!Object.keys(cart).length) return;
+  document.getElementById("cartScrim").classList.remove("open");
+  checkoutStep = 0;
+  checkoutDone = false;
+  showView("checkout");
+  renderCheckout();
+}
+
+function checkoutAsideHTML(){
+  const items = Object.values(cart);
+  const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
+  return '<div class="label" style="color:var(--stamp);margin-bottom:16px">Récapitulatif</div>'
+    + items.map(i => '<div class="line"><span>'+i.qty+' × '+i.p.nom+'</span><span>'+fmt(i.qty*i.p.prix)+'</span></div>').join("")
+    + '<div class="total-row"><span>Total TTC</span><span>'+fmt(total)+'</span></div>'
+    + (buyer.jour ? '<p style="font-size:13px;color:var(--text-3);margin-top:14px">Remise en main propre '+formatDateFR(buyer.jour)+(buyer.creneau?(' · '+buyer.creneau):'')+'. Annulable jusqu\'à la veille, 18 h.</p>' : '');
+}
+
+function renderCheckout(){
+  const view = document.getElementById("view-checkout");
+  const items = Object.values(cart);
+
+  if (checkoutDone) {
+    const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
+    view.innerHTML =
+      '<div style="max-width:600px;margin:0 auto;text-align:center;padding:24px 0 64px">'
+      + '<span class="badge badge--success">'+icon("check",12)+' E-mail préparé</span>'
+      + '<h1 style="font:var(--type-h1);margin:20px 0 12px">Merci, votre commande est prête à être envoyée.</h1>'
+      + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail récapitulatif vient de s\'ouvrir dans votre messagerie : il ne reste plus qu\'à l\'envoyer pour confirmer votre réservation.</p>'
+      + '<div class="ticket" style="text-align:left;max-width:380px;margin:32px auto">'
+      +   items.map(i => '<div class="line"><span>'+i.qty+' × '+i.p.nom+'</span><span>'+fmt(i.qty*i.p.prix)+'</span></div>').join("")
+      +   '<div class="total-row"><span>Total</span><span>'+fmt(total)+'</span></div>'
+      + '</div>'
+      + '<button class="btn btn--secondary" onclick="clearCart();showView(\'home\')">Retour aux produits</button>'
+      + '</div>';
+    return;
+  }
+
+  if (!items.length) {
+    view.innerHTML = '<h1 style="font:var(--type-h1);margin:0 0 16px">Votre panier est vide</h1><button class="btn btn--primary" onclick="showView(\'home\')">Découvrir les produits</button>';
+    return;
+  }
+
+  const stepsHTML = CHECKOUT_LABELS.map((l,i) => {
+    const cls = i < checkoutStep ? "done" : i === checkoutStep ? "active" : "";
+    const num = i < checkoutStep ? icon("check", 12) : (i+1);
+    return '<li class="'+cls+'"><span class="num">'+num+'</span>'+l+'</li>';
+  }).join("");
+
+  let stepBody;
+  if (checkoutStep === 0) {
+    stepBody =
+      '<h3 style="font:var(--type-h3);margin:0 0 6px">Quel jour de retrait ?</h3>'
+      + '<p style="color:var(--text-2);margin:0 0 20px;font-size:15px">Choisissez le jour où vous viendrez récupérer votre commande.</p>'
+      + '<div class="field"><label>Jour de retrait souhaité</label><input type="date" id="ckJour" value="'+buyer.jour+'"></div>'
+      + '<div class="field"><label>Créneau souhaité (optionnel)</label><input type="text" id="ckCreneau" placeholder="ex. matin, 10 h - 12 h…" value="'+buyer.creneau+'"></div>'
+      + '<div class="stepcard" style="display:flex;gap:14px;align-items:flex-start">'+icon("map-pin",20)+'<div><b>Remise en main propre</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14px">Adresse et horaires précisés dans votre e-mail de confirmation.</p></div></div>'
+      + '<div style="display:flex;justify-content:flex-end;margin-top:28px"><button class="btn btn--primary btn--lg" onclick="ckNext()">Continuer '+icon("arrow-right",16)+'</button></div>';
+  } else if (checkoutStep === 1) {
+    stepBody =
+      '<h3 style="font:var(--type-h3);margin:0 0 6px">Fiche demandeur</h3>'
+      + '<p style="color:var(--text-2);margin:0 0 20px;font-size:15px">Aucun compte à créer. Ces informations servent uniquement à préparer et remettre votre commande.</p>'
+      + '<div class="field-row">'
+      +   '<div class="field"><label>Prénom</label><input type="text" id="ckPrenom" placeholder="Marie" value="'+buyer.prenom+'"></div>'
+      +   '<div class="field"><label>Nom</label><input type="text" id="ckNom" placeholder="Dupont" value="'+buyer.nom+'"></div>'
+      + '</div>'
+      + '<div class="field"><label>E-mail</label><input type="email" id="ckEmail" placeholder="marie@exemple.fr" value="'+buyer.email+'"><span class="hint">Pour la confirmation de commande.</span></div>'
+      + '<div class="field"><label>Téléphone</label><input type="tel" id="ckTel" placeholder="06 12 34 56 78" value="'+buyer.tel+'"><span class="hint">Uniquement en cas d\'imprévu sur la commande.</span></div>'
+      + '<label class="switch" style="margin:4px 0 8px"><input type="checkbox" id="ckNews" '+(buyer.news?"checked":"")+'> Recevoir la liste des pains de la semaine par e-mail</label>'
+      + '<div style="display:flex;justify-content:space-between;margin-top:20px"><button class="btn btn--ghost" onclick="ckPrev()">'+icon("arrow-left",16)+' Retour</button><button class="btn btn--primary btn--lg" onclick="ckNext()">Continuer '+icon("arrow-right",16)+'</button></div>';
+  } else {
+    stepBody =
+      '<h3 style="font:var(--type-h3);margin:0 0 6px">Récapitulatif</h3>'
+      + '<p style="color:var(--text-2);margin:0 0 20px;font-size:15px">Paiement sur place à l\'enlèvement — espèces ou virement. Aucune donnée bancaire n\'est demandée ici.</p>'
+      + '<div class="stepcard" style="margin-bottom:24px;padding:20px 24px">'
+      +   '<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0"><span>Demandeur</span><span>'+buyer.prenom+' '+buyer.nom+'</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0;border-top:var(--border-hair)"><span>E-mail</span><span>'+buyer.email+'</span></div>'
+      +   (buyer.tel ? '<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0;border-top:var(--border-hair)"><span>Téléphone</span><span>'+buyer.tel+'</span></div>' : "")
+      + '</div>'
+      + '<div style="display:flex;justify-content:space-between"><button class="btn btn--ghost" onclick="ckPrev()">'+icon("arrow-left",16)+' Retour</button><button class="btn btn--primary btn--lg" onclick="ckSubmit()">Envoyer ma commande '+icon("arrow-right",16)+'</button></div>';
+  }
+
+  view.innerHTML =
+    '<h1 style="font:var(--type-h1);margin:0 0 28px">Commande</h1>'
+    + '<ol class="checkout-steps">'+stepsHTML+'</ol>'
+    + '<div class="checkout-grid">'
+    +   '<div>'+stepBody+'</div>'
+    +   '<aside class="ticket-aside">'+checkoutAsideHTML()+'</aside>'
+    + '</div>';
+}
+
+function ckNext(){
+  if (checkoutStep === 0) {
+    buyer.jour = document.getElementById("ckJour").value;
+    buyer.creneau = document.getElementById("ckCreneau").value.trim();
+  }
+  if (checkoutStep === 1) {
+    buyer.prenom = document.getElementById("ckPrenom").value.trim();
+    buyer.nom = document.getElementById("ckNom").value.trim();
+    buyer.email = document.getElementById("ckEmail").value.trim();
+    buyer.tel = document.getElementById("ckTel").value.trim();
+    buyer.news = document.getElementById("ckNews").checked;
+    if (!buyer.prenom || !buyer.nom || !buyer.email) { showToast("Merci de renseigner prénom, nom et e-mail."); return; }
+  }
+  checkoutStep++;
+  window.scrollTo(0,0);
+  renderCheckout();
+}
+function ckPrev(){ checkoutStep--; window.scrollTo(0,0); renderCheckout(); }
+function ckSubmit(){
+  passCommande(buyer);
+  checkoutDone = true;
+  window.scrollTo(0,0);
+  renderCheckout();
 }
 
 /* ================= TOAST ================= */
@@ -752,6 +978,16 @@ document.getElementById("menuBtn").addEventListener("click", () => document.getE
 function closeMenu(){ document.getElementById("mobileMenu").classList.remove("open"); }
 function scrollToId(id){ closeMenu(); const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); }
 
+/* ================= VIEWS (Accueil/Boutique vs Nos farines, comme des pages distinctes) ================= */
+function showView(name){
+  document.getElementById("view-home").style.display = name === "home" ? "" : "none";
+  document.getElementById("view-farines").style.display = name === "farines" ? "" : "none";
+  document.getElementById("view-checkout").style.display = name === "checkout" ? "" : "none";
+  document.querySelectorAll("#mainNav a[data-view]").forEach(a => a.classList.toggle("active", a.getAttribute("data-view") === name));
+  window.scrollTo(0, 0);
+  closeMenu();
+}
+
 /* ================= LOAD SHEET ================= */
 async function loadSheet(){
   try {
@@ -768,7 +1004,8 @@ async function loadSheet(){
       + '</small></div>';
   }
 }
-loadSheet();
+showView("home");
+loadSheet().then(loadFarines);
 </script>
 </body>
 </html>
