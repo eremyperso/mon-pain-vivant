@@ -215,6 +215,31 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .badge--warning{background:var(--warning-soft);color:var(--warning)}
 .badge--danger{background:var(--danger-soft);color:var(--danger)}
 
+/* ============ FICHE PRODUIT ============ */
+.pv-crumbs{font-size:14px;color:var(--text-3);margin-bottom:28px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pv-crumbs a{cursor:pointer;color:var(--text-1)}
+.pv-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start}
+.pv-media{display:flex;flex-direction:column;gap:12px;position:sticky;top:140px}
+.pv-thumbs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pv-photo{position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px);display:flex;align-items:flex-end;padding:12px;border-radius:var(--radius-1)}
+.pv-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pv-photo img~.product__ph{display:none}
+.pv-photo .product__ph{position:relative}
+.pv-sec{border-top:var(--border-perforated);padding:20px 0;display:flex;flex-direction:column;gap:12px}
+.pv-label{font:600 14px var(--font-sans);color:var(--text-1)}
+.pv-opt{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.pv-opt input{appearance:none;flex:none;width:22px;height:22px;margin:0;border:1.5px solid var(--umber-900);border-radius:50%;background:var(--surface-card);display:grid;place-items:center;cursor:pointer}
+.pv-opt input[type=checkbox]{border-radius:var(--radius-1)}
+.pv-opt input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--umber-900)}
+.pv-opt input[type=checkbox]:checked{background:var(--umber-900)}
+.pv-opt input[type=checkbox]:checked::after{width:6px;height:11px;border-radius:0;background:none;border:solid var(--flour-50);border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg)}
+.pv-opt__l{display:block;font-size:17px;color:var(--text-1);line-height:22px}
+.pv-opt__d{display:block;font-size:14px;color:var(--text-3);margin-top:4px}
+.pv-buy{display:flex;gap:12px;border-top:var(--border-perforated);padding-top:24px}
+.pv-info{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px;padding-top:20px;border-top:var(--border-hair);font-size:15px;color:var(--text-2)}
+@media(max-width:860px){.pv-grid{grid-template-columns:1fr;gap:28px}.pv-media{position:static}}
+@media(max-width:480px){.pv-info{grid-template-columns:1fr}}
+
 /* ============ STEPPER ============ */
 .stepper{display:inline-flex;align-items:center;border:1px solid var(--border-2);border-radius:var(--radius-1);background:var(--surface-card);height:var(--control-h-md)}
 .stepper--sm{height:var(--control-h-sm)}
@@ -240,6 +265,48 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .farine-chip .thumb img{width:100%;height:100%;object-fit:cover}
 .farine-chip b{display:block;font-weight:600;font-size:15px}
 .farine-chip span.price{display:block;font-size:13px;color:var(--text-3)}
+
+.flour{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:56px;padding:48px 0;border-top:var(--border-perforated);align-items:start}
+.flour--flip{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.flour--flip .flour__media{order:2}
+.flour__media{position:relative}
+.flour__photo{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:var(--radius-2);background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px);display:flex;align-items:flex-end;padding:12px}
+.flour__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.flour__photo img~.product__ph{display:none}
+.flour__photo .product__ph{position:relative}
+.flour__num{position:absolute;top:14px;left:14px;background:var(--bg-page);color:var(--text-1);padding:5px 10px;border-radius:var(--radius-1)}
+.flour__body{display:flex;flex-direction:column;gap:20px;padding-top:8px}
+.flour__desc{color:var(--text-2);font-size:16px;line-height:1.65;margin:0;text-wrap:pretty}
+.flour__desc.is-clamped{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.flour__more{margin-top:10px;background:none;border:0;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font:600 14px var(--font-sans);color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+.flour__dl{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin:0;padding:16px 0;border-top:var(--border-hair);border-bottom:var(--border-hair);font-size:14px}
+.flour__dl dt{color:var(--text-3)}
+.flour__dl dd{margin:0}
+@media(max-width:760px){
+  .flour,.flour--flip{grid-template-columns:1fr;gap:20px;padding:32px 0}
+  .flour--flip .flour__media{order:0}
+  .flour__photo{aspect-ratio:4/3}
+  .flour__body{padding-top:0}
+  .flour__desc.is-clamped{-webkit-line-clamp:4}
+}
+
+/* ============ PAGES LÉGALES ============ */
+.legal{margin-top:16px;color:var(--text-2)}
+.legal p,.legal ul{max-width:720px}
+.legal-table{max-width:760px}
+.ck-row{display:flex;gap:16px;justify-content:space-between;align-items:flex-start;padding:14px 0;border-top:var(--border-perforated)}
+.ck-row b{display:block;font-weight:600;color:var(--text-1)}
+.ck-row small{display:block;font-size:14px;color:var(--text-3);margin-top:2px}
+.ck-row>span{font-size:13px;color:var(--text-3);white-space:nowrap}
+.legal h3{font:var(--type-h3);color:var(--text-1);margin:32px 0 10px}
+.legal p{margin:0 0 10px}
+.legal ul{margin:0 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.legal b{color:var(--text-1)}
+.legal .todo{background:var(--warning-soft);color:var(--warning);padding:0 4px;border-radius:var(--radius-1)}
+.legal-table{border:var(--border-hair);border-radius:var(--radius-2);overflow:hidden;font-size:15px;margin-bottom:12px}
+.legal-row{display:grid;grid-template-columns:1.1fr 1.4fr .9fr .9fr;gap:12px;padding:12px 16px;background:var(--surface-card);border-top:var(--border-hair);color:var(--text-1)}
+.legal-row--head{background:var(--surface-sunken);font-weight:700;border-top:none}
+@media(max-width:760px){.legal-row{grid-template-columns:1fr;gap:4px}.legal-row--head{display:none}.legal-row span:first-child{font-weight:700}}
 
 /* ============ CHECKOUT FORM ============ */
 .checkout-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start;margin-top:8px}
@@ -325,7 +392,9 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 
 /* ============ FOOTER ============ */
 footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
-.foot-grid{max-width:var(--container-max);margin:0 auto;padding:56px 32px 32px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+.foot-grid{max-width:var(--container-max);margin:0 auto;padding:56px 32px 32px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.foot-col span{color:var(--flour-200)}
+.foot-col span.label{color:var(--wheat-300)}
 @media(max-width:760px){.foot-grid{grid-template-columns:1fr;padding:48px 20px 24px}}
 .foot-grid .about p{max-width:320px;font:var(--type-lede);color:var(--flour-300);margin-top:18px}
 .foot-col{display:flex;flex-direction:column;gap:8px;font-size:14.5px}
@@ -403,6 +472,16 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 
 <div class="wrap" id="view-checkout" style="display:none;padding-top:48px"></div>
 
+<div class="wrap" id="view-produit" style="display:none;padding-top:32px"></div>
+
+<div class="wrap" id="view-legal" style="display:none;padding-top:48px">
+  <h1 style="font:var(--type-h1);margin:0 0 24px">Informations légales</h1>
+  <div class="tabs" id="legalTabs"><button class="tab" data-tab="cgv" onclick="showLegal('cgv')">CGV</button><button class="tab" data-tab="rgpd" onclick="showLegal('rgpd')">Confidentialité</button><button class="tab" data-tab="mentions" onclick="showLegal('mentions')">Mentions légales</button></div>
+  <div class="legal" data-panel="cgv"><p>Dernière mise à jour : <span class="js-date"></span>. Les présentes conditions générales de vente (CGV) s’appliquent à toute commande passée sur le site <b>autantdupain.eremy.fr</b>. Passer commande vaut acceptation des CGV en vigueur au jour de la commande.</p><h3>1. Vendeur</h3><p><span class="js-brand"></span>, activité exercée par <mark class="todo">[Prénom Nom]</mark>, <mark class="todo">[statut : micro-entrepreneur]</mark>, SIRET <mark class="todo">[n° SIRET]</mark>, <mark class="todo">[adresse]</mark>. Contact : <a class="js-mail"></a>.</p><h3>2. Produits</h3><p>Pains au levain, douceurs, farines et graines, fabriqués ou conditionnés à la commande, dans la limite des quantités de chaque fournée. Les photos sont non contractuelles. La composition, les allergènes et la durée de conservation de chaque produit figurent sur sa fiche. Pour toute allergie, contactez-nous avant de commander : nos produits sont fabriqués dans un atelier qui utilise du gluten, du sésame, des fruits à coque, du lait et des œufs.</p><h3>3. Prix</h3><p>Les prix sont indiqués en euros, toutes taxes comprises (<mark class="todo">[TVA non applicable, art. 293 B du CGI]</mark>). Les options (demi-pain, cuisson du matin, tranchage) sont facturées au tarif affiché sur la fiche produit au moment de la commande. Aucun frais de livraison : les produits sont remis en main propre.</p><h3>4. Commande</h3><p>La commande se fait en trois étapes : choix du jour de remise, fiche demandeur (prénom, nom, e-mail, téléphone facultatif), puis choix du mode de paiement. Un e-mail de validation récapitulant la commande est envoyé à l’adresse indiquée. Le vendeur peut refuser une commande en cas de rupture ou de motif légitime ; le client en est alors informé et, le cas échéant, remboursé.</p><h3>5. Paiement</h3><p>Trois modes sont proposés, sans saisie de numéro de carte sur le site :</p><ul><li><b>PayPal</b> : paiement depuis votre compte PayPal, sur l’interface sécurisée de PayPal (Europe) S.à r.l. et Cie, S.C.A. Le site ne reçoit ni ne conserve aucune donnée bancaire.</li><li><b>Wero</b> : paiement instantané depuis l’application de votre banque, au bénéficiaire et avec la référence indiqués. La commande est considérée comme payée à réception effective des fonds.</li><li><b>En main propre</b> : en espèces ou par virement lors de la remise.</li></ul><p>Une confirmation de paiement est envoyée par e-mail dès que le paiement est reçu et vérifié.</p><h3>6. Modification et annulation</h3><p>Toute commande peut être modifiée ou annulée <b>jusqu’à l’avant-veille du jour de remise, 18 h</b> (samedi pour le lundi, mardi pour le jeudi), en répondant à l’e-mail de validation. Ce délai correspond au rafraîchi du levain et à la pousse de la pâte. Une commande annulée dans ce délai et déjà réglée est intégralement remboursée par le même moyen de paiement, sous 14 jours au plus. Passé ce délai, la commande est due.</p><h3>7. Droit de rétractation</h3><p>Conformément à l’article L221-28 du Code de la consommation, le droit de rétractation ne s’applique pas aux biens susceptibles de se détériorer ou de se périmer rapidement, ni aux biens confectionnés selon les spécifications du consommateur. Les pains et douceurs sont concernés. Pour les farines et graines non ouvertes, vous disposez d’un délai de 14 jours à compter de la remise pour exercer votre droit de rétractation en nous écrivant à <a class="js-mail"></a>.</p><h3>8. Remise des produits</h3><p>Remise en main propre le lundi ou le jeudi choisi lors de la commande, à l’adresse et aux horaires confirmés par e-mail. Aucune livraison à domicile. Une commande non retirée le jour prévu, sans prévenir, reste due et ne peut être conservée au-delà de la journée.</p><h3>9. Réclamations et garanties</h3><p>Toute réclamation (produit manquant, non conforme) est à adresser le jour de la remise à <a class="js-mail"></a>. Les garanties légales de conformité (art. L217-3 et suivants du Code de la consommation) et des vices cachés (art. 1641 et suivants du Code civil) s’appliquent.</p><h3>10. Médiation et litiges</h3><p>En cas de litige non résolu à l’amiable, le client consommateur peut recourir gratuitement au médiateur de la consommation : <mark class="todo">[nom, site et adresse du médiateur]</mark>. Les présentes CGV sont soumises au droit français.</p></div>
+  <div class="legal" data-panel="rgpd"><p>Dernière mise à jour : <span class="js-date"></span>. Cette politique explique quelles données sont collectées lorsque vous commandez sur ce site, pourquoi, et quels sont vos droits, conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés.</p><h3>Responsable du traitement</h3><p><mark class="todo">[Prénom Nom]</mark> (<span class="js-brand"></span>), <mark class="todo">[adresse]</mark>. Contact : <a class="js-mail"></a>.</p><h3>Données collectées et finalités</h3><div class="legal-table"><div class="legal-row legal-row--head"><span>Finalité</span><span>Données</span><span>Base légale</span><span>Durée de conservation</span></div><div class="legal-row"><span>Traiter et remettre la commande</span><span>Prénom, nom, e-mail, téléphone (facultatif), jour de remise, produits commandés</span><span>Exécution du contrat</span><span>3 ans après la dernière commande</span></div><div class="legal-row"><span>Envoyer les e-mails de commande et de paiement</span><span>E-mail, prénom, référence et contenu de la commande</span><span>Exécution du contrat</span><span>Durée de conservation de la commande</span></div><div class="legal-row"><span>Paiement PayPal</span><span>Identifiant de transaction et statut du paiement. Vos données de compte et bancaires sont traitées par PayPal seul.</span><span>Exécution du contrat</span><span>10 ans (pièces comptables)</span></div><div class="legal-row"><span>Paiement Wero ou en main propre</span><span>Montant, référence, date de réception</span><span>Exécution du contrat / obligation légale</span><span>10 ans (pièces comptables)</span></div><div class="legal-row"><span>Comptabilité</span><span>Référence, montant, mode de paiement</span><span>Obligation légale (art. L123-22 du Code de commerce)</span><span>10 ans</span></div><div class="legal-row"><span>Liste des pains de la semaine (si cochée)</span><span>E-mail</span><span>Consentement</span><span>Jusqu’au désabonnement</span></div></div><p>Aucune donnée n’est vendue, louée ni utilisée à des fins publicitaires. Aucune décision automatisée ni profilage n’est effectué.</p><h3>Destinataires et sous-traitants</h3><ul><li><b>PayPal (Europe) S.à r.l. et Cie, S.C.A.</b>, 22-24 boulevard Royal, L-2449 Luxembourg : paiement en ligne. PayPal agit en <b>responsable de traitement indépendant</b> pour les données que vous lui fournissez (compte, moyen de paiement, lutte contre la fraude) ; voir sa <a href="https://www.paypal.com/fr/legalhub/privacy-full" target="_blank" rel="noopener">déclaration de confidentialité</a>. Le module PayPal n’est chargé qu’à l’étape de paiement, si vous choisissez PayPal.</li><li><b>Votre banque, via Wero</b> (European Payments Initiative) : paiement instantané, traité par votre établissement bancaire selon ses propres conditions.</li><li><b>Google Ireland Ltd</b> (Google Sheets, Apps Script, Gmail) : enregistrement des commandes et envoi des e-mails. Transferts éventuels vers les États-Unis encadrés par le Data Privacy Framework et les clauses contractuelles types.</li><li><b>Brevo (Sendinblue SAS)</b>, 106 boulevard Haussmann, 75008 Paris : envoi des e-mails transactionnels, données hébergées dans l’Union européenne.</li><li><b>GitHub Inc.</b> (hébergement du site) : journaux techniques de connexion (adresse IP). Transfert vers les États-Unis encadré par le Data Privacy Framework.</li></ul><h3>Sécurité</h3><p>Le site est servi en HTTPS. Aucune donnée bancaire ne transite par le site ni n’y est stockée. L’accès au fichier des commandes est limité au vendeur.</p><h3>Vos droits</h3><p>Vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité de vos données, ainsi que du droit de retirer votre consentement à tout moment et de définir des directives sur le sort de vos données après votre décès. Écrivez à <a class="js-mail"></a> ; une réponse vous est apportée sous un mois. Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a>.</p><h3>Cookies</h3><p>Ce site ne dépose <b>aucun cookie publicitaire ni de mesure d’audience</b>. Aucun bandeau de consentement n’est donc nécessaire pour la navigation.</p><h3>Stockage strictement nécessaire</h3><p>Le panier est conservé uniquement en mémoire, le temps de votre visite. Ces traitements sont exemptés de consentement (art. 82 de la loi Informatique et Libertés).</p><h3>Services tiers</h3><ul><li><b>PayPal</b> : si vous choisissez PayPal à l’étape de paiement, le module PayPal est chargé et peut déposer des cookies nécessaires au paiement et à la prévention de la fraude. Il n’est jamais chargé avant ce choix.</li><li><b>Google Fonts et images Google Drive</b> : l’affichage des polices et des photos produits entraîne la transmission de votre adresse IP à Google.</li></ul><p>Vous pouvez à tout moment supprimer les cookies depuis les réglages de votre navigateur. Pour toute question : <a class="js-mail"></a>.</p><div style="margin-top:8px"><button class="btn btn--secondary" onclick="openCookies()">Gérer mes cookies</button></div></div>
+  <div class="legal" data-panel="mentions"><h3>Éditeur du site</h3><p><mark class="todo">[Prénom Nom]</mark>, <mark class="todo">[statut : micro-entrepreneur]</mark> · <mark class="todo">[adresse]</mark> · SIRET <mark class="todo">[n° SIRET]</mark> · <mark class="todo">[TVA non applicable, art. 293 B du CGI]</mark> · Contact : <a class="js-mail"></a>. Directeur de la publication : <mark class="todo">[Prénom Nom]</mark>.</p><h3>Activité alimentaire</h3><p>Fabrication artisanale de pains déclarée auprès de la DDPP <mark class="todo">[département]</mark> <mark class="todo">[n° de déclaration / agrément si applicable]</mark>. Informations sur les allergènes conformes au règlement (UE) n° 1169/2011, disponibles sur chaque fiche produit.</p><h3>Hébergeur</h3><p>GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis · <a href="https://github.com" target="_blank" rel="noopener">github.com</a>.</p><h3>Prestataires</h3><p>Paiement : PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 boulevard Royal, L-2449 Luxembourg. E-mails : Brevo (Sendinblue SAS), 106 boulevard Haussmann, 75008 Paris. Données de commande : Google Ireland Ltd, Gordon House, Barrow Street, Dublin 4, Irlande.</p><h3>Propriété intellectuelle</h3><p>Les textes, photos et le logo de ce site sont la propriété de l’éditeur. Toute reproduction sans autorisation est interdite.</p></div>
+</div>
+
 <div class="wrap" id="view-livraison" style="display:none;padding-top:48px">
   <h1 style="font:var(--type-h1);margin:0 0 32px">Remise en main propre</h1>
   <div class="retrait-box">
@@ -443,22 +522,44 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 <footer>
   <div class="foot-grid">
     <div class="about">
-      <a class="wordmark" style="color:var(--flour-50)" onclick="scrollToId('top')"><span class="name" id="brandNameFoot">Au Temps du Pain</span><span class="sub" style="color:var(--wheat-300)">Pain au levain naturel</span></a>
-      <p>Pains au levain, à réserver en ligne et à retirer sur place.</p>
+      <a class="wordmark" style="color:var(--flour-50)" onclick="showView('home');scrollToId('top')"><span class="name" id="brandNameFoot">Au Temps du Pain</span><span class="sub" style="color:var(--wheat-300)">Pain au levain naturel</span></a>
+      <p>Pains au levain et farines du Meunier de Versailles, à réserver en ligne.</p>
     </div>
     <div class="foot-col">
       <span class="label">Produits</span>
-      <a onclick="scrollToId('boutique')">Tous les produits</a>
+      <a onclick="showView('home');scrollToId('boutique')">Tous les produits</a>
       <a onclick="showView('farines')">Nos farines</a>
       <a onclick="showView('livraison')">Remise en main propre</a>
     </div>
     <div class="foot-col">
-      <span class="label">Contact</span>
-      <a href="mailto:CONTACT_EMAIL_PLACEHOLDER" id="contactMailLinkFoot">CONTACT_EMAIL_PLACEHOLDER</a>
+      <span class="label">Informations</span>
+      <a onclick="showLegal('cgv')">Conditions générales de vente</a>
+      <a onclick="showLegal('mentions')">Mentions légales</a>
+      <a onclick="showLegal('rgpd')">Politique de confidentialité</a>
+      <a onclick="openCookies()">Gérer les cookies</a>
+    </div>
+    <div class="foot-col">
+      <span class="label">Paiement</span>
+      <span style="display:flex;gap:8px;align-items:center"><span class="icon" style="width:16px;height:16px;--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/lock.svg')"></span>Paiement sécurisé</span>
+      <span>PayPal · Wero · En main propre</span>
+      <span>Aucun compte nécessaire</span>
     </div>
   </div>
-  <div class="foot-bottom">© <span id="year"></span> Au Temps du Pain · Mise à jour automatique depuis Google Sheets · Prix TTC</div>
+  <div class="foot-bottom">© <span id="year"></span> <span id="brandNameCopy">Au Temps du Pain</span> · Prix TTC</div>
 </footer>
+
+<!-- Cookies -->
+<div class="scrim hidden" id="cookieScrim" onclick="if(event.target===this)closeCookies()">
+  <div class="dialog" role="dialog" aria-modal="true" aria-label="Vos choix de cookies">
+    <div class="dialog__head"><h2 class="dialog__title">Vos choix de cookies</h2><button class="iconbtn" onclick="closeCookies()" aria-label="Fermer"><span class="icon" style="--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/x.svg')"></span></button></div>
+    <div class="dialog__body">
+      <p style="margin-top:0">Ce site ne dépose aucun cookie publicitaire ni de mesure d’audience : il n’y a rien à accepter ni à refuser.</p>
+      <div class="ck-row"><div><b>Nécessaires</b><small>Panier et commande, conservés le temps de votre visite.</small></div><span>Toujours actifs</span></div>
+      <div class="ck-row"><div><b>Paiement PayPal</b><small>Chargé uniquement si vous choisissez PayPal à l’étape de paiement.</small></div><span>Sur demande</span></div>
+    </div>
+    <div class="dialog__foot"><button class="btn btn--ghost" onclick="closeCookies();showLegal('rgpd')">Politique de confidentialité</button><button class="btn btn--primary" onclick="closeCookies()">Fermer</button></div>
+  </div>
+</div>
 
 <!-- Quick view modal -->
 <div class="scrim hidden" id="qvScrim" onclick="if(event.target===this)closeQuickView()">
@@ -539,8 +640,10 @@ document.getElementById("brandNameFoot").textContent = BRAND_NAME;
 document.getElementById("brandSub").textContent = BRAND_SUB;
 document.getElementById("contactMailLink").textContent = CONTACT_EMAIL;
 document.getElementById("contactMailLink").href = "mailto:" + CONTACT_EMAIL;
-document.getElementById("contactMailLinkFoot").textContent = CONTACT_EMAIL;
-document.getElementById("contactMailLinkFoot").href = "mailto:" + CONTACT_EMAIL;
+document.getElementById("brandNameCopy").textContent = BRAND_NAME;
+document.querySelectorAll(".js-mail").forEach(a => { a.textContent = CONTACT_EMAIL; a.href = "mailto:" + CONTACT_EMAIL; });
+document.querySelectorAll(".js-brand").forEach(e => e.textContent = BRAND_NAME);
+document.querySelectorAll(".js-date").forEach(e => e.textContent = "29 septembre 2026");
 document.getElementById("year").textContent = new Date().getFullYear();
 
 function icon(name, size) {
@@ -562,7 +665,10 @@ document.getElementById("trustStrip").innerHTML = [
 let allProducts = [];
 let currentCat = "all";
 let currentTag = "Tous";
-let cart = {};
+let cart = {};   /* clé = id|format|cuisson|tranché → { key, p, o, unit, qty } */
+/* Suppléments (modifiables dans l'onglet contact : RATIO_DEMI, PRIX_CUISSON_MATIN, PRIX_TRANCHE) */
+const OPT = { demiRatio: 0.55, matin: 0.40, tranche: 0.30 };
+const DEFAULT_OPTS = { format:"entier", bake:"veille", sliced:false };
 
 function fmt(n){ return n.toFixed(2).replace(".", ",") + " €"; }
 function slug(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
@@ -618,6 +724,13 @@ function parseCSV(text){
   }).filter(p => p.nom);
 }
 
+function optCol(v, def){
+  v = String(v == null ? "" : v).trim();
+  if (!v) return { on: def, val: null };
+  if (/^(non|no|0|false)$/i.test(v)) return { on: false, val: null };
+  const n = parseFloat(v.replace(",", ".").replace(/[^\d.]/g, ""));
+  return { on: true, val: isNaN(n) ? null : n };
+}
 function normalize(rows){
   return rows.map(r => {
     const stock = ["in","low","out"].includes(r.stock) ? r.stock : "in";
@@ -633,7 +746,18 @@ function normalize(rows){
       allergenes: r.allergenes || "",
       conservation: r.conservation || "",
       tags: (r.tags || "").split(/[;,]/).map(t => t.trim()).filter(Boolean),
-      photo: driveToImg(r.photo || "")
+      photo: driveToImg(r.photo || ""),
+      photos: [r.photo2, r.photo3].map(u => driveToImg((u || "").trim())).filter(Boolean),
+      /* Options pain, actives par défaut sur les catégories contenant "pain".
+         Colonnes facultatives demi / cuisson_matin / tranche :
+         vide = valeur par défaut · "non" = désactivée · "oui" = activée · nombre = tarif propre au produit
+         (demi : ratio du prix, ex. 0,55 · cuisson_matin et tranche : supplément en €, ex. 0,40). */
+      pain: optCol(r.cuisson_matin, /pain/i.test(r.categorie || "")).on,
+      halfable: optCol(r.demi, /pain/i.test(r.categorie || "")).on,
+      sliceable: optCol(r.tranche || r.tranchable, /pain/i.test(r.categorie || "")).on,
+      prixDemi: optCol(r.demi, false).val,
+      prixMatin: optCol(r.cuisson_matin, false).val,
+      prixTranche: optCol(r.tranche || r.tranchable, false).val
     };
   });
 }
@@ -668,9 +792,11 @@ function renderGrid(list){
   currentList = list;
   const content = document.getElementById("content");
   if (!list.length) { content.innerHTML = '<div class="state">Aucun produit dans cette catégorie.</div>'; return; }
-  content.innerHTML = '<div class="grid">' + list.map((p, idx) => {
+  content.innerHTML = '<div class="grid">' + list.map(productCardHTML).join("") + '</div>';
+}
+function productCardHTML(p){
     const emoji = getEmoji(p.nom, p.categorie);
-    const inCart = cart[p.id];
+    const dk = lineKey(p.id, DEFAULT_OPTS), inCart = cart[dk];
     const badges = [];
     if (p.tags[0]) badges.push('<span class="badge badge--stamp">'+p.tags[0]+'</span>');
     if (p.stock !== "in") badges.push('<span class="badge badge--'+STOCK_LABEL[p.stock].t+'">'+STOCK_LABEL[p.stock].l+'</span>');
@@ -682,7 +808,7 @@ function renderGrid(list){
     const addCtrl = p.stock === "out"
       ? '<span class="badge badge--neutral">Épuisé</span>'
       : inCart
-        ? '<div class="stepper stepper--sm"><button onclick="changeQty(\''+p.id+'\',-1)">'+icon("minus",14)+'</button><output>'+inCart.qty+'</output><button onclick="changeQty(\''+p.id+'\',1)">'+icon("plus",14)+'</button></div>'
+        ? '<div class="stepper stepper--sm"><button onclick="changeQty(\''+dk+'\',-1)">'+icon("minus",14)+'</button><output>'+inCart.qty+'</output><button onclick="changeQty(\''+dk+'\',1)">'+icon("plus",14)+'</button></div>'
         : '<button class="btn btn--sm btn--primary" onclick="addToCart(\''+p.id+'\')">'+icon("plus",14)+' Ajouter</button>';
 
     return '<article class="product">'
@@ -694,7 +820,6 @@ function renderGrid(list){
       +   '<div class="product__foot"><span class="product__price">'+fmt(p.prix)+'</span>'+addCtrl+'</div>'
       + '</div>'
       + '</article>';
-  }).join("") + '</div>';
 }
 
 function applyFilters(){
@@ -714,26 +839,41 @@ function normalizeFarine(rows){
     nom: r.nom,
     description: r.description || "",
     tagProduit: (r.tag_produit || r.tagproduit || r.tag || "").trim(),
-    photo: driveToImg(r.photo || "")
+    photo: driveToImg(r.photo || ""),
+    /* colonnes facultatives : type (ex. Farine bise), mouture (ex. Meule de pierre), utilisation (ex. Levain, miche) */
+    type: (r.type || "").trim(),
+    mouture: (r.mouture || "").trim(),
+    utilisation: (r.utilisation || r.utilisee_pour || "").trim()
   }));
 }
 function renderFarines(){
   const box = document.getElementById("farinesContent");
   if (!allFlours.length) { box.innerHTML = '<div class="state">Aucune farine renseignée pour le moment.</div>'; return; }
-  box.innerHTML = allFlours.map(f => {
-    const related = f.tagProduit ? allProducts.filter(p => p.tags.includes(f.tagProduit)) : [];
-    const emoji = getEmoji(f.nom, "farine");
-    const thumb = f.photo
-      ? '<img src="'+f.photo+'" alt="'+f.nom+'" referrerpolicy="no-referrer" onerror="this.remove()">'
-      : emoji;
-    return '<div class="farine-row">'
-      + '<div><h3>'+f.nom+'</h3>'+(f.description?'<p>'+f.description+'</p>':'')+'</div>'
-      + '<div class="farine-related">'
-      +   '<div class="farine-chip" style="cursor:default"><div class="thumb">'+thumb+'</div><b>'+f.nom+'</b></div>'
-      +   related.map(p => '<a class="farine-chip" onclick="showView(\'home\');scrollToId(\'boutique\');openQuickView(\''+p.id+'\')"><div class="thumb">'+(p.photo?'<img src="'+p.photo+'" alt="'+p.nom+'" referrerpolicy="no-referrer" onerror="this.remove()">':getEmoji(p.nom,p.categorie))+'</div><span><b>'+p.nom+'</b><span class="price">'+fmt(p.prix)+'</span></span></a>').join("")
+  box.innerHTML = allFlours.map((f, i) => {
+    const used = f.tagProduit ? allProducts.filter(p => p.tags.includes(f.tagProduit)) : [];
+    const long = f.description.length > 200;
+    const dl = [["Mouture", f.mouture], ["Utilisée pour", f.utilisation]].filter(x => x[1]);
+    return '<article class="flour'+(i % 2 ? ' flour--flip' : '')+'">'
+      + '<div class="flour__media"><div class="flour__photo">'
+      +   (f.photo ? '<img src="'+f.photo+'" alt="'+f.nom+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">' : '')
+      +   '<span class="product__ph">Photo · '+f.nom+'</span></div>'
+      +   '<span class="flour__num label">'+String(i + 1).padStart(2, "0")+'</span></div>'
+      + '<div class="flour__body">'
+      +   '<div>'+(f.type ? '<div class="label" style="color:var(--text-3);margin-bottom:8px">'+f.type+'</div>' : '')+'<h2 style="font:var(--type-h2);margin:0">'+f.nom+'</h2></div>'
+      +   (f.description ? '<div><p class="flour__desc'+(long ? ' is-clamped' : '')+'">'+f.description+'</p>'
+      +     (long ? '<button class="flour__more" aria-expanded="false" onclick="toggleFlour(this)"><span>Lire la suite</span>'+icon("chevron-down",16)+'</button>' : '')+'</div>' : '')
+      +   (dl.length ? '<dl class="flour__dl">'+dl.map(x => '<dt>'+x[0]+'</dt><dd>'+x[1]+'</dd>').join("")+'</dl>' : '')
+      +   (used.length ? '<div><div class="label" style="color:var(--text-3);margin-bottom:10px">À retrouver dans</div><div class="farine-related">'
+      +     used.map(p => '<a class="farine-chip" onclick="openProduct(\''+p.id+'\')"><div class="thumb">'+(p.photo?'<img src="'+p.photo+'" alt="'+p.nom+'" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'</div><span><b>'+p.nom+'</b><span class="price">'+fmt(p.prix)+'</span></span></a>').join("")
+      +   '</div></div>' : '')
       + '</div>'
-      + '</div>';
+      + '</article>';
   }).join("");
+}
+function toggleFlour(btn){
+  const p = btn.previousElementSibling, open = p.classList.toggle("is-clamped") === false;
+  btn.setAttribute("aria-expanded", open);
+  btn.innerHTML = '<span>'+(open ? 'Replier' : 'Lire la suite')+'</span>'+icon(open ? "chevron-up" : "chevron-down", 16);
 }
 async function loadFarines(){
   const box = document.getElementById("farinesContent");
@@ -752,69 +892,111 @@ async function loadFarines(){
 }
 
 /* ================= QUICK VIEW ================= */
-function openQuickView(id){
+/* ================= FICHE PRODUIT ================= */
+let pv = null;  /* { p, qty, o } */
+function openQuickView(id){ openProduct(id); }
+function openProduct(id){
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
-  const emoji = getEmoji(p.nom, p.categorie);
-  document.getElementById("qvImg").innerHTML = p.photo
-    ? '<img src="'+p.photo+'" alt="'+p.nom+'" referrerpolicy="no-referrer" onerror="this.remove()">'
-    : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:64px">'+emoji+'</div>';
-
-  const rows = [];
-  if (p.allergenes) rows.push(['Allergènes', p.allergenes]);
-  if (p.conservation) rows.push(['Conservation', p.conservation]);
-
-  document.getElementById("qvBody").innerHTML =
-    '<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">' +
-      p.tags.map(t=>'<span class="badge badge--stamp">'+t+'</span>').join("") +
-      '<span class="badge badge--'+STOCK_LABEL[p.stock].t+'">'+STOCK_LABEL[p.stock].l+'</span>' +
-    '</div>' +
-    '<h2 style="font:var(--type-h3);margin:0">'+p.nom+'</h2>' +
-    (p.description ? '<p style="color:var(--text-2);margin:10px 0 0">'+p.description+'</p>' : '') +
-    '<div style="display:flex;align-items:baseline;gap:12px;margin:20px 0">' +
-      '<span style="font:700 26px var(--font-sans)">'+fmt(p.prix)+'</span>' +
-      (p.poids ? '<span style="color:var(--text-3);font-size:14px">'+p.poids+'</span>' : '') +
-    '</div>' +
-    rows.map(r => '<div style="display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-top:var(--border-hair);font-size:14px"><span style="color:var(--text-3)">'+r[0]+'</span><span style="color:var(--text-2);text-align:right">'+r[1]+'</span></div>').join("") +
-    '<div style="display:flex;gap:12px;border-top:var(--border-perforated);padding-top:20px;margin-top:20px">' +
-      '<div class="stepper" id="qvStepper"><button onclick="qvChangeQty(-1)">'+icon("minus",16)+'</button><output id="qvQty">1</output><button onclick="qvChangeQty(1)">'+icon("plus",16)+'</button></div>' +
-      '<button class="btn btn--primary" style="flex:1" '+(p.stock==="out"?'disabled':'')+' onclick="addToCart(\''+p.id+'\', qvQty())">'+icon("shopping-basket",16)+' '+(p.stock==="out"?'Épuisé':'Ajouter au panier')+'</button>' +
-    '</div>';
-
-  document.getElementById("qvScrim").classList.remove("hidden");
+  pv = { p, qty: 1, o: Object.assign({}, DEFAULT_OPTS) };
+  showView("produit");
+  renderProduct();
 }
-function qvQty(){ return parseInt(document.getElementById("qvQty").textContent, 10) || 1; }
-function qvChangeQty(delta){
-  const el = document.getElementById("qvQty");
-  el.textContent = Math.max(1, (parseInt(el.textContent,10)||1) + delta);
+function pvSet(k, v){ pv.o[k] = v; renderProduct(); }
+function pvQty(d){ pv.qty = Math.max(1, Math.min(pv.p.stock === "low" ? 3 : 12, pv.qty + d)); renderProduct(); }
+function photoBox(src, label, ratio){
+  return '<div class="pv-photo" style="aspect-ratio:'+ratio+'">'
+    + (src ? '<img src="'+src+'" alt="'+label+'" referrerpolicy="no-referrer" onerror="this.remove()">' : '')
+    + '<span class="product__ph">'+label+'</span></div>';
 }
-function closeQuickView(){ document.getElementById("qvScrim").classList.add("hidden"); }
-document.addEventListener("keydown", e => { if (e.key === "Escape") { closeQuickView(); closeConfirm(); } });
+function radioOpt(name, checked, onclick, label, desc){
+  return '<label class="pv-opt"><input type="radio" name="'+name+'"'+(checked?' checked':'')+' onchange="'+onclick+'"><span><span class="pv-opt__l">'+label+'</span>'+(desc?'<span class="pv-opt__d">'+desc+'</span>':'')+'</span></label>';
+}
+function renderProduct(){
+  const { p, qty, o } = pv;
+  const unit = unitPrice(p, o);
+  const catLabel = CAT_LABEL[p.categorieLabel.toLowerCase()] || p.categorieLabel;
+  const extra = p.photos.length
+    ? '<div class="pv-thumbs">' + p.photos.map((u, k) => photoBox(u, k ? "Tranché" : "La mie", "1/1")).join("") + '</div>' : '';
+  const related = allProducts.filter(x => x.id !== p.id && x.stock !== "out").slice(0, 3);
+  const plus = n => '+' + fmt(n).replace(/\u00a0?€$/, "\u00a0€");
+  document.getElementById("view-produit").innerHTML =
+    '<nav class="pv-crumbs"><a onclick="showView(\'home\');scrollToId(\'boutique\')">Nos produits</a>'+icon("chevron-right",14)
+    + '<a onclick="showView(\'home\');setCat(\''+p.categorie+'\');scrollToId(\'boutique\')">'+catLabel+'</a>'+icon("chevron-right",14)+'<span>'+p.nom+'</span></nav>'
+    + '<div class="pv-grid">'
+    +   '<div class="pv-media">'+photoBox(p.photo, p.nom, "4/3")+extra+'</div>'
+    +   '<div>'
+    +     '<div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">'+p.tags.map(t=>'<span class="badge badge--stamp">'+t+'</span>').join("")+'<span class="badge badge--'+STOCK_LABEL[p.stock].t+'">'+STOCK_LABEL[p.stock].l+'</span></div>'
+    +     '<h1 style="font:var(--type-h1);margin:0">'+p.nom+'</h1>'
+    +     (p.description ? '<p style="font:var(--type-lede);color:var(--text-2);margin:14px 0 0">'+p.description+'</p>' : '')
+    +     '<div style="display:flex;align-items:baseline;gap:12px;margin:24px 0"><span style="font:700 30px var(--font-sans);font-variant-numeric:tabular-nums">'+fmt(unit)+'</span><span style="color:var(--text-3);font-size:15px">'+(p.halfable && o.format==="demi" ? "demi-pain" : p.poids)+'</span></div>'
+    +     (p.halfable ? '<div class="pv-sec"><div class="pv-label">Format</div>'
+    +        radioOpt("fmt", o.format==="entier", "pvSet(\'format\',\'entier\')", "Entier"+(p.poids?" · "+p.poids:""), "")
+    +        radioOpt("fmt", o.format==="demi", "pvSet(\'format\',\'demi\')", "Demi-pain", fmt(unitPrice(p,{format:"demi",bake:"veille",sliced:false}))+" · coupé au fournil")
+    +      '</div>' : '')
+    +     (p.pain ? '<div class="pv-sec"><div class="pv-label">Cuisson</div>'
+    +        radioOpt("bake", o.bake==="veille", "pvSet(\'bake\',\'veille\')", "Cuit la veille au soir", "Inclus. Le pain au levain se bonifie en reposant.")
+    +        radioOpt("bake", o.bake==="matin", "pvSet(\'bake\',\'matin\')", "Cuit le matin même · "+plus(p.prixMatin ?? OPT.matin), "Sorti du four le matin, remis en main propre dans la journée.")
+    +      '</div>' : '')
+    +     (p.sliceable ? '<div class="pv-sec"><label class="pv-opt"><input type="checkbox"'+(o.sliced?' checked':'')+' onchange="pvSet(\'sliced\',this.checked)"><span><span class="pv-opt__l">Tranché · '+plus(p.prixTranche ?? OPT.tranche)+'</span><span class="pv-opt__d">Tranché au fournil. Se garde un peu moins longtemps.</span></span></label></div>' : '')
+    +     '<div class="pv-buy"><div class="stepper"><button onclick="pvQty(-1)"'+(qty<=1?' disabled':'')+'>'+icon("minus",16)+'</button><output>'+qty+'</output><button onclick="pvQty(1)">'+icon("plus",16)+'</button></div>'
+    +       '<button class="btn btn--primary" style="flex:1" '+(p.stock==="out"?'disabled':'')+' onclick="addToCart(\''+p.id+'\', pv.qty, pv.o)">'+icon("shopping-basket",16)+' '+(p.stock==="out"?'Épuisé pour cette fournée':'Ajouter · '+fmt(unit*qty))+'</button></div>'
+    +     (p.stock==="low" ? '<p style="font-size:14px;color:var(--warning);margin:12px 0 0">Plus que quelques pièces pour cette fournée.</p>' : '')
+    +     ((p.allergenes||p.conservation) ? '<div class="pv-info">'
+    +        (p.allergenes ? '<div><div class="pv-label" style="margin-bottom:6px">Allergènes</div><div>'+p.allergenes+'</div></div>' : '')
+    +        (p.conservation ? '<div><div class="pv-label" style="margin-bottom:6px">Conservation</div><div>'+p.conservation+'</div></div>' : '')
+    +      '</div>' : '')
+    +   '</div>'
+    + '</div>'
+    + (related.length ? '<section style="margin-top:80px"><h2 style="font:var(--type-h2);margin:0 0 28px">Avec ce produit</h2><div class="grid">'+related.map(productCardHTML).join("")+'</div></section>' : '');
+}
+function closeQuickView(){ const q = document.getElementById("qvScrim"); if (q) q.classList.add("hidden"); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeQuickView(); closeConfirm(); closeCookies(); } });
 
 /* ================= CART ================= */
-function addToCart(id, qty){
-  qty = qty || 1;
+function lineKey(id, o){ return id + "|" + o.format + "|" + o.bake + "|" + (o.sliced ? 1 : 0); }
+function unitPrice(p, o){
+  let x = p.prix;
+  if (p.halfable && o.format === "demi") x = Math.round(p.prix * (p.prixDemi ?? OPT.demiRatio) * 10) / 10;
+  if (p.pain && o.bake === "matin") x += (p.prixMatin ?? OPT.matin);
+  if (p.sliceable && o.sliced) x += (p.prixTranche ?? OPT.tranche);
+  return Math.round(x * 100) / 100;
+}
+function optLabel(p, o){
+  const a = [];
+  if (p.halfable && o.format === "demi") a.push("Demi");
+  if (p.pain && o.bake === "matin") a.push("Cuit le matin");
+  if (p.sliceable && o.sliced) a.push("Tranché");
+  return a.join(" · ");
+}
+function lineName(i){ const l = optLabel(i.p, i.o); return i.p.nom + (l ? " (" + l + ")" : ""); }
+function addToCart(id, qty, o){
+  qty = qty || 1; o = Object.assign({}, DEFAULT_OPTS, o || {});
   const p = allProducts.find(x => x.id === id);
   if (!p || p.stock === "out") return;
-  if (cart[id]) cart[id].qty += qty; else cart[id] = { p, qty };
-  showToast((qty>1?qty+' × ':'') + p.nom + ' ajouté au panier');
+  const key = lineKey(id, o);
+  if (cart[key]) cart[key].qty += qty; else cart[key] = { key, p, o, unit: unitPrice(p, o), qty };
+  showToast((qty>1?qty+' × ':'') + lineName(cart[key]) + ' ajouté au panier');
   closeQuickView();
   updateCartUI();
   applyFilters();
+  if (pv && document.getElementById("view-produit").style.display !== "none") renderProduct();
 }
 function changeQty(id, delta){
+  if (!cart[id] && cart[lineKey(id, DEFAULT_OPTS)]) id = lineKey(id, DEFAULT_OPTS);
   if (!cart[id]) return;
   cart[id].qty += delta;
   if (cart[id].qty <= 0) delete cart[id];
   updateCartUI();
   applyFilters();
+  if (pv && document.getElementById("view-produit").style.display !== "none") renderProduct();
 }
 function clearCart(){ cart = {}; updateCartUI(); applyFilters(); }
 
 function updateCartUI(){
   const items = Object.values(cart);
   const count = items.reduce((s,i) => s + i.qty, 0);
-  const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
+  const total = items.reduce((s,i) => s + i.qty * i.unit, 0);
 
   const cc = document.getElementById("cartCount");
   cc.textContent = count;
@@ -838,10 +1020,10 @@ function updateCartUI(){
     return '<div class="cart-line">'
       + '<div class="thumb">'+thumb+'</div>'
       + '<div><div class="name">'+i.p.nom+'</div>'
-      +   '<div class="meta">'+(i.p.poids||"")+(i.p.poids?" · ":"")+fmt(i.p.prix)+'</div>'
-      +   '<div class="stepper stepper--sm"><button onclick="changeQty(\''+i.p.id+'\',-1)">'+icon("minus",14)+'</button><output>'+i.qty+'</output><button onclick="changeQty(\''+i.p.id+'\',1)">'+icon("plus",14)+'</button></div>'
+      +   '<div class="meta">'+(optLabel(i.p,i.o) || i.p.poids || "")+' · '+fmt(i.unit)+'</div>'
+      +   '<div class="stepper stepper--sm"><button onclick="changeQty(\''+i.key+'\',-1)">'+icon("minus",14)+'</button><output>'+i.qty+'</output><button onclick="changeQty(\''+i.key+'\',1)">'+icon("plus",14)+'</button></div>'
       + '</div>'
-      + '<div class="amount">'+fmt(i.p.prix * i.qty)+'</div>'
+      + '<div class="amount">'+fmt(i.unit * i.qty)+'</div>'
       + '</div>';
   }).join("");
 }
@@ -853,10 +1035,10 @@ function closeConfirm(){ document.getElementById("confirmScrim").classList.add("
 function passCommande(buyer){
   const items = Object.values(cart);
   if (!items.length) return false;
-  const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
+  const total = items.reduce((s,i) => s + i.qty * i.unit, 0);
   const nb = items.reduce((s,i) => s + i.qty, 0);
 
-  const lignes = items.map(i => "  - " + i.p.nom + " x" + i.qty + " = " + fmt(i.p.prix * i.qty)).join("\n");
+  const lignes = items.map(i => "  - " + lineName(i) + " x" + i.qty + " = " + fmt(i.unit * i.qty)).join("\n");
   const coord = buyer ? (
     "Demandeur : " + buyer.prenom + " " + buyer.nom + "\n"
     + "E-mail : " + buyer.email + "\n"
@@ -926,9 +1108,9 @@ function openCheckout(){
 
 function checkoutAsideHTML(){
   const items = Object.values(cart);
-  const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
+  const total = items.reduce((s,i) => s + i.qty * i.unit, 0);
   return '<div class="label" style="color:var(--stamp);margin-bottom:16px">Récapitulatif</div>'
-    + items.map(i => '<div class="line"><span>'+i.qty+' × '+i.p.nom+'</span><span>'+fmt(i.qty*i.p.prix)+'</span></div>').join("")
+    + items.map(i => '<div class="line"><span>'+i.qty+' × '+lineName(i)+'</span><span>'+fmt(i.qty*i.unit)+'</span></div>').join("")
     + '<div class="total-row"><span>Total TTC</span><span>'+fmt(total)+'</span></div>'
     + (buyer.jour ? '<p style="font-size:13px;color:var(--text-3);margin-top:14px">Remise en main propre '+formatDateFR(buyer.jour)+(buyer.creneau?(' · '+buyer.creneau):'')+'. Annulable jusqu\'à l\'avant-veille, 18 h.</p>' : '');
 }
@@ -938,7 +1120,7 @@ function renderCheckout(){
   const items = Object.values(cart);
 
   if (checkoutDone) {
-    const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
+    const total = items.reduce((s,i) => s + i.qty * i.unit, 0);
     view.innerHTML =
       '<div style="max-width:600px;margin:0 auto;text-align:center;padding:24px 0 64px">'
       + (buyer.sent === "auto"
@@ -951,7 +1133,7 @@ function renderCheckout(){
           + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail récapitulatif vient de s\'ouvrir dans votre messagerie : il ne reste plus qu\'à l\'envoyer pour confirmer votre réservation.</p>')
       + (buyer.paiement ? '<p style="font-size:14px;color:var(--text-3)">Référence '+buyer.ref+' · Paiement : '+buyer.paiement+'</p>' : '')
       + '<div class="ticket" style="text-align:left;max-width:380px;margin:32px auto">'
-      +   items.map(i => '<div class="line"><span>'+i.qty+' × '+i.p.nom+'</span><span>'+fmt(i.qty*i.p.prix)+'</span></div>').join("")
+      +   items.map(i => '<div class="line"><span>'+i.qty+' × '+lineName(i)+'</span><span>'+fmt(i.qty*i.unit)+'</span></div>').join("")
       +   '<div class="total-row"><span>Total</span><span>'+fmt(total)+'</span></div>'
       + '</div>'
       + '<button class="btn btn--secondary" onclick="clearCart();showView(\'home\')">Retour aux produits</button>'
@@ -1030,7 +1212,7 @@ function renderCheckout(){
 }
 
 /* ================= PAIEMENT ================= */
-function cartTotal(){ return Object.values(cart).reduce((s,i) => s + i.qty * i.p.prix, 0); }
+function cartTotal(){ return Object.values(cart).reduce((s,i) => s + i.qty * i.unit, 0); }
 function setPay(v){ buyer.pay = v; renderPayZone(); }
 function payAndSend(label){ buyer.paiement = label; ckSubmit(); }
 function renderPayZone(){
@@ -1114,7 +1296,7 @@ function ckSubmit(){
       jourISO: buyer.jour, lang: navigator.language || "fr-FR",
       jourLabel: new Date(buyer.jour + "T00:00:00").toLocaleDateString(navigator.language || "fr-FR", { weekday:"long", day:"numeric", month:"long", year:"numeric" }), creneau: buyer.creneau, pay: buyer.pay,
       paypalOrderId: buyer.paypalOrderId || "", test: TEST_MODE,
-      items: items.map(i => ({ nom: i.p.nom, qty: i.qty, prix: i.p.prix })), total: cartTotal()
+      items: items.map(i => ({ nom: lineName(i), qty: i.qty, prix: i.unit })), total: cartTotal()
     };
     /* text/plain : pas de pré-vérification CORS côté Apps Script */
     fetch(ORDER_WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(payload) })
@@ -1146,11 +1328,20 @@ function closeMenu(){ document.getElementById("mobileMenu").classList.remove("op
 function scrollToId(id){ closeMenu(); const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); }
 
 /* ================= VIEWS (Accueil/Boutique vs Nos farines, comme des pages distinctes) ================= */
+function openCookies(){ document.getElementById("cookieScrim").classList.remove("hidden"); }
+function closeCookies(){ document.getElementById("cookieScrim").classList.add("hidden"); }
+function showLegal(tab){
+  showView("legal");
+  document.querySelectorAll("#legalTabs .tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  document.querySelectorAll("#view-legal .legal").forEach(d => d.style.display = d.dataset.panel === tab ? "" : "none");
+}
 function showView(name){
   document.getElementById("view-home").style.display = name === "home" ? "" : "none";
   document.getElementById("view-farines").style.display = name === "farines" ? "" : "none";
   document.getElementById("view-checkout").style.display = name === "checkout" ? "" : "none";
   document.getElementById("view-livraison").style.display = name === "livraison" ? "" : "none";
+  document.getElementById("view-produit").style.display = name === "produit" ? "" : "none";
+  document.getElementById("view-legal").style.display = name === "legal" ? "" : "none";
   document.querySelectorAll("#mainNav a[data-view]").forEach(a => a.classList.toggle("active", a.getAttribute("data-view") === name));
   window.scrollTo(0, 0);
   closeMenu();
@@ -1182,6 +1373,10 @@ async function loadContact(){
     parseCSVRows(await res.text()).forEach(r => { if (r[0]) kv[r[0].trim().toUpperCase()] = (r[1] || "").trim(); });
     if (kv.WERO_ID) WERO_ID = kv.WERO_ID;
     if (kv.ORDER_WEBHOOK_URL) ORDER_WEBHOOK_URL = kv.ORDER_WEBHOOK_URL;
+    const num = v => parseFloat(String(v).replace(",", "."));
+    if (!isNaN(num(kv.RATIO_DEMI))) OPT.demiRatio = num(kv.RATIO_DEMI);
+    if (!isNaN(num(kv.PRIX_CUISSON_MATIN))) OPT.matin = num(kv.PRIX_CUISSON_MATIN);
+    if (!isNaN(num(kv.PRIX_TRANCHE))) OPT.tranche = num(kv.PRIX_TRANCHE);
     if (checkoutStep === 2 && buyer.pay === "wero") renderPayZone();
   } catch (e) {}
 }
