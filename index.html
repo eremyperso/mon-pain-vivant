@@ -116,7 +116,7 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 @media(max-width:760px){.headrow{padding:14px 20px;gap:12px}}
 .wordmark{text-decoration:none;cursor:pointer;display:flex;flex-direction:column;gap:4px;color:var(--text-1)}
 .wordmark span.name{font:400 26px/1 var(--font-display)}
-.wordmark span.sub{font:var(--type-label);letter-spacing:var(--ls-label);font-size:9.5px;color:var(--stamp)}
+.wordmark span.sub{font:var(--type-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-size:9.5px;color:var(--stamp)}
 .mainnav{display:flex;gap:28px;flex:1}
 .mainnav a{cursor:pointer;font:600 15px var(--font-sans);text-decoration:none;color:var(--text-1)}
 .mainnav a:hover{text-decoration:underline;text-underline-offset:6px}
@@ -162,6 +162,26 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .tab .count{margin-left:6px;font-weight:400;color:var(--text-3)}
 .filterbar{display:flex;gap:16px;margin:24px 0 32px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .tagrow{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:760px){
+  .tabs,.tagrow{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity;margin:0 -20px;padding-left:20px;padding-right:20px;scroll-padding:0 20px}
+  .tabs::-webkit-scrollbar,.tagrow::-webkit-scrollbar{display:none}
+  .tab,.pill{flex:none;scroll-snap-align:start;white-space:nowrap}
+  .filterbar{flex-direction:column;align-items:stretch}
+  .filterbar .tagrow{width:auto}
+}
+.paychoice{display:grid;gap:10px;margin-bottom:20px}
+.paychoice label{display:flex;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--border-2);border-radius:var(--radius-2);background:var(--surface-card);cursor:pointer}
+.paychoice label:has(input:checked){border-color:var(--umber-900);box-shadow:inset 0 0 0 1px var(--umber-900)}
+.paychoice input{accent-color:var(--accent);margin:0}
+.paychoice b{display:flex;align-items:center;gap:8px;font:600 15px var(--font-sans)}
+.paychoice small{display:block;font-size:13px;color:var(--text-3);margin-top:3px}
+.paynote{font-size:14px;color:var(--text-2);margin:12px 0 16px}
+.daychoice{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px}
+.daychoice label{display:flex;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--border-2);border-radius:var(--radius-2);background:var(--surface-card);cursor:pointer}
+.daychoice label:has(input:checked){border-color:var(--umber-900);box-shadow:inset 0 0 0 1px var(--umber-900)}
+.daychoice input{accent-color:var(--accent);margin:0}
+.daychoice b{display:block;font:400 18px/1.2 var(--font-serif);text-transform:capitalize}
+.daychoice small{display:block;font-size:12.5px;color:var(--text-3);margin-top:2px}
 .pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border:1px solid var(--border-2);border-radius:var(--radius-pill);background:transparent;font:500 14px var(--font-sans);color:var(--text-1);cursor:pointer}
 .pill:hover{border-color:var(--border-strong)}
 .pill.active{background:var(--umber-900);border-color:var(--umber-900);color:var(--flour-50)}
@@ -244,7 +264,17 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .line{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
 .total-row{display:flex;justify-content:space-between;border-top:var(--border-hair);margin-top:10px;padding-top:10px;font-weight:700}
 
-/* ============ RETRAIT ============ */
+/* ============ REMISE EN MAIN PROPRE ============ */
+.retrait-box{background:var(--surface-card);border:var(--border-hair);border-radius:var(--radius-2);padding:28px;max-width:560px}
+.retrait-box .icon{color:var(--accent);width:24px;height:24px}
+.retrait-box h3{font:var(--type-h3);margin:14px 0 12px}
+.retrait-box .lines{display:flex;flex-direction:column;gap:8px;color:var(--text-2)}
+.faq{max-width:760px}
+.faq details{border-top:var(--border-perforated);padding:18px 0}
+.faq details:last-child{border-bottom:var(--border-perforated)}
+.faq summary{cursor:pointer;font:400 20px/1.3 var(--font-serif);color:var(--text-1)}
+.faq summary::marker{color:var(--accent)}
+.faq p{color:var(--text-2);margin:10px 0 0}
 .retrait{margin-top:72px;background:var(--surface-sunken);padding:56px 0}
 .retrait .box{background:var(--surface-card);border:var(--border-hair);border-radius:var(--radius-2);padding:28px;max-width:560px}
 .retrait .box .icon{color:var(--accent);width:24px;height:24px}
@@ -308,7 +338,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 </head>
 <body>
 
-<div class="topbar" id="topbarMsg">Retrait le lundi et le jeudi · commandes jusqu'à la veille, 18 h</div>
+<div class="topbar" id="topbarMsg">Remise des pains le lundi et le jeudi · commandes jusqu’à l’avant-veille, 18 h</div>
 
 <header>
   <div class="headrow">
@@ -317,16 +347,14 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <nav class="mainnav" id="mainNav">
       <a data-view="home" onclick="showView('home');scrollToId('boutique')">Nos produits</a>
       <a data-view="farines" onclick="showView('farines')">Nos farines</a>
-      <a onclick="showView('home');scrollToId('retrait')">Retrait</a>
-      <a onclick="showView('home');scrollToId('contact')">Contact</a>
+      <a data-view="livraison" onclick="showView('livraison')">Remise en main propre</a>
     </nav>
     <button class="iconbtn" id="cartBtn" aria-label="Panier"></button>
   </div>
   <nav class="mobilemenu" id="mobileMenu">
     <a onclick="showView('home');scrollToId('boutique');closeMenu()">Nos produits</a>
     <a onclick="showView('farines');closeMenu()">Nos farines</a>
-    <a onclick="showView('home');scrollToId('retrait');closeMenu()">Retrait</a>
-    <a onclick="showView('home');scrollToId('contact');closeMenu()">Contact</a>
+    <a onclick="showView('livraison');closeMenu()">Remise en main propre</a>
   </nav>
 </header>
 
@@ -340,7 +368,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
       <p class="lede" id="heroLede">Choisissez vos pains, réglez en ligne… non, réservez-les simplement, et venez les récupérer sur place.</p>
       <div class="hero-actions">
         <button class="btn btn--primary btn--lg" onclick="scrollToId('boutique')">Découvrir les produits <span class="icon" style="width:18px;height:18px;--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/arrow-right.svg')"></span></button>
-        <button class="btn btn--secondary btn--lg" onclick="scrollToId('retrait')">Infos retrait</button>
+        <button class="btn btn--secondary btn--lg" onclick="showView('livraison')">Remise en main propre</button>
       </div>
     </div>
     <div class="placeholder"><span>Photo — fournée du jour</span></div>
@@ -375,19 +403,30 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 
 <div class="wrap" id="view-checkout" style="display:none;padding-top:48px"></div>
 
-<section class="retrait" id="retrait">
-  <div class="wrap">
-    <div class="box">
-      <span class="icon" style="--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/map-pin.svg')"></span>
-      <h3>Retrait sur place</h3>
-      <div class="lines" id="retraitLines">
-        <span>Adresse à préciser</span>
-        <span>Jours et horaires à préciser</span>
-        <span>Paiement sur place — espèces ou virement</span>
-      </div>
+<div class="wrap" id="view-livraison" style="display:none;padding-top:48px">
+  <h1 style="font:var(--type-h1);margin:0 0 32px">Remise en main propre</h1>
+  <div class="retrait-box">
+    <span class="icon" style="--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/map-pin.svg')"></span>
+    <h3>Au fournil</h3>
+    <div class="lines" id="retraitLines">
+      <span>Adresse à préciser</span>
+      <span>Le lundi et le jeudi — horaires confirmés par e-mail</span>
+      <span>Paiement sur place — espèces ou virement</span>
+      <span>Pas de livraison à domicile</span>
     </div>
   </div>
-</section>
+  <h2 style="font:var(--type-h2);margin:64px 0 16px">Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Quels jours sont remis les pains ?</summary><p>Le lundi et le jeudi, en main propre. Les horaires précis vous sont confirmés dans l’e-mail de réponse à votre commande.</p></details>
+    <details><summary>Jusqu’à quand puis-je commander ?</summary><p>Jusqu’à l’avant-veille, 18 h : le samedi pour le lundi, le mardi pour le jeudi. Ce délai laisse le temps de rafraîchir le levain et de laisser pousser la pâte. Les prochaines dates disponibles vous sont proposées automatiquement lors de la commande.</p></details>
+    <details><summary>Faut-il créer un compte ?</summary><p>Non. Vos nom, e-mail et téléphone sont demandés dans la fiche demandeur, uniquement pour préparer et remettre votre commande.</p></details>
+    <details><summary>Comment se passe le paiement ?</summary><p>Le paiement se fait sur place, à la remise des pains : en espèces ou par virement. Aucune donnée bancaire n’est demandée sur le site.</p></details>
+    <details><summary>Puis-je modifier ou annuler ma commande ?</summary><p>Oui, jusqu’à l’avant-veille du jour de remise, 18 h, en répondant simplement à l’e-mail de commande.</p></details>
+    <details><summary>Que se passe-t-il si un pain manque ?</summary><p>Nous vous prévenons par e-mail avant le jour de remise et la ligne concernée est retirée de votre commande.</p></details>
+    <details><summary>Le pain tranché se garde-t-il ?</summary><p>Un à deux jours de moins qu’un pain entier. Conservez-le dans un sac en tissu ou un linge.</p></details>
+  </div>
+  <div style="margin-top:40px"><button class="btn btn--primary" onclick="showView('home');scrollToId('boutique')">Découvrir les produits</button></div>
+</div>
 
 <div class="wrap" id="contact">
   <section class="section" style="margin-bottom:72px">
@@ -410,8 +449,8 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <div class="foot-col">
       <span class="label">Produits</span>
       <a onclick="scrollToId('boutique')">Tous les produits</a>
-      <a onclick="scrollToId('farines')">Nos farines</a>
-      <a onclick="scrollToId('retrait')">Retrait</a>
+      <a onclick="showView('farines')">Nos farines</a>
+      <a onclick="showView('livraison')">Remise en main propre</a>
     </div>
     <div class="foot-col">
       <span class="label">Contact</span>
@@ -452,7 +491,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-summary" id="cartSummary" style="display:none">
       <div class="row"><span>Sous-total TTC</span><span class="total" id="cartTotal">0,00 €</span></div>
-      <div class="note">Paiement sur place à l'enlèvement.</div>
+      <div class="note">Paiement en ligne (PayPal, Wero) ou en main propre.</div>
       <button class="btn btn--primary btn--block btn--lg" id="orderBtn" onclick="openCheckout()">Envoyer ma commande <span class="icon" style="width:18px;height:18px;--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/arrow-right.svg')"></span></button>
       <div style="text-align:center;margin-top:10px"><button class="btn btn--ghost btn--sm" onclick="openConfirm()">Vider le panier</button></div>
     </div>
@@ -472,6 +511,18 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOY
 // colonne "tags" des produits, pour relier la farine aux produits qui l'utilisent), photo (optionnel)
 const SHEET_FARINES_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=2039655305";
 const CONTACT_EMAIL = "eremy.perso@gmail.com";
+/* ---- Paiement dématérialisé (aucune saisie de numéro de carte sur le site) ----
+   PAYPAL_CLIENT_ID : Client ID "Live" de l'application PayPal (developer.paypal.com > Apps & Credentials).
+   WERO_ID          : lu dans l'onglet "contact" du Google Sheet (ligne WERO_ID | valeur). */
+const PAYPAL_CLIENT_ID_LIVE = "REMPLACER_PAR_CLIENT_ID_PAYPAL";
+/* Mode test : Client ID Sandbox (developer.paypal.com > Apps & Credentials, onglet Sandbox).
+   Actif automatiquement en local (localhost / 127.0.0.1) ou avec ?test=1 dans l'URL : aucun argent réel n'est débité. */
+const PAYPAL_CLIENT_ID_SANDBOX = "BAAasmO3uv9_lk0dAwxLCYh6PfRMSaycO4kI-AfwTlZ89DmO4uLsBRKNMMfWWnuFRXwzEC9zCHojEt1wCI";
+const TEST_MODE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || new URLSearchParams(location.search).has("test");
+const PAYPAL_CLIENT_ID = TEST_MODE ? PAYPAL_CLIENT_ID_SANDBOX : PAYPAL_CLIENT_ID_LIVE;
+const SHEET_CONTACT_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/gviz/tq?tqx=out:csv&sheet=contact";
+let WERO_ID = "";
+let ORDER_WEBHOOK_URL = "";  /* onglet contact : ORDER_WEBHOOK_URL = URL de l'application Web Apps Script */
 const BRAND_NAME = "Au Temps du Pain";
 const BRAND_SUB  = "Pain au levain naturel";
 
@@ -810,8 +861,10 @@ function passCommande(buyer){
     "Demandeur : " + buyer.prenom + " " + buyer.nom + "\n"
     + "E-mail : " + buyer.email + "\n"
     + (buyer.tel ? "Téléphone : " + buyer.tel + "\n" : "")
-    + (buyer.jour ? "Jour de retrait souhaité : " + buyer.jour + "\n" : "")
+    + (buyer.jour ? "Jour de retrait souhaité : " + formatDateFR(buyer.jour) + "\n" : "")
     + (buyer.creneau ? "Créneau souhaité : " + buyer.creneau + "\n" : "")
+    + (buyer.ref ? "Référence : " + buyer.ref + "\n" : "")
+    + (buyer.paiement ? "Paiement : " + buyer.paiement + "\n" : "")
     + "\n"
   ) : "";
   const body = "Bonjour,\n\nJe souhaite réserver les produits suivants :\n\n"
@@ -836,8 +889,8 @@ function passCommande(buyer){
 /* ================= CHECKOUT — page pleine (Remise / Fiche demandeur / Récapitulatif) ================= */
 let checkoutStep = 0;
 let checkoutDone = false;
-let buyer = { prenom:"", nom:"", email:"", tel:"", jour:"", creneau:"", news:false };
-const CHECKOUT_LABELS = ["Remise", "Fiche demandeur", "Récapitulatif"];
+let buyer = { prenom:"", nom:"", email:"", tel:"", jour:"", creneau:"", news:false, pay:"paypal", paiement:"", ref:"" };
+const CHECKOUT_LABELS = ["Remise", "Fiche demandeur", "Paiement"];
 
 function formatDateFR(iso){
   if (!iso) return "";
@@ -846,11 +899,27 @@ function formatDateFR(iso){
   return d.toLocaleDateString("fr-FR", { weekday:"long", day:"numeric", month:"long" });
 }
 
+/* Prochains jours de retrait : lundi (1) et jeudi (4), commande possible jusqu'à l'avant-veille 18 h (rafraîchi du levain + pousse) */
+function nextPickupDays(n){
+  const out = [], now = new Date();
+  const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  for (let i = 1; out.length < (n||4) && i < 60; i++) {
+    const day = new Date(d); day.setDate(d.getDate() + i);
+    if (day.getDay() !== 1 && day.getDay() !== 4) continue;
+    const deadline = new Date(day); deadline.setDate(day.getDate() - 2); deadline.setHours(18,0,0,0);
+    if (now >= deadline) continue;
+    const iso = day.getFullYear()+"-"+String(day.getMonth()+1).padStart(2,"0")+"-"+String(day.getDate()).padStart(2,"0");
+    out.push({ iso, deadline });
+  }
+  return out;
+}
+
 function openCheckout(){
   if (!Object.keys(cart).length) return;
   document.getElementById("cartScrim").classList.remove("open");
   checkoutStep = 0;
   checkoutDone = false;
+  buyer.ref = ""; buyer.paiement = ""; buyer.paypalOrderId = ""; buyer.sent = "";
   showView("checkout");
   renderCheckout();
 }
@@ -861,7 +930,7 @@ function checkoutAsideHTML(){
   return '<div class="label" style="color:var(--stamp);margin-bottom:16px">Récapitulatif</div>'
     + items.map(i => '<div class="line"><span>'+i.qty+' × '+i.p.nom+'</span><span>'+fmt(i.qty*i.p.prix)+'</span></div>').join("")
     + '<div class="total-row"><span>Total TTC</span><span>'+fmt(total)+'</span></div>'
-    + (buyer.jour ? '<p style="font-size:13px;color:var(--text-3);margin-top:14px">Remise en main propre '+formatDateFR(buyer.jour)+(buyer.creneau?(' · '+buyer.creneau):'')+'. Annulable jusqu\'à la veille, 18 h.</p>' : '');
+    + (buyer.jour ? '<p style="font-size:13px;color:var(--text-3);margin-top:14px">Remise en main propre '+formatDateFR(buyer.jour)+(buyer.creneau?(' · '+buyer.creneau):'')+'. Annulable jusqu\'à l\'avant-veille, 18 h.</p>' : '');
 }
 
 function renderCheckout(){
@@ -872,9 +941,15 @@ function renderCheckout(){
     const total = items.reduce((s,i) => s + i.qty * i.p.prix, 0);
     view.innerHTML =
       '<div style="max-width:600px;margin:0 auto;text-align:center;padding:24px 0 64px">'
-      + '<span class="badge badge--success">'+icon("check",12)+' E-mail préparé</span>'
-      + '<h1 style="font:var(--type-h1);margin:20px 0 12px">Merci, votre commande est prête à être envoyée.</h1>'
-      + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail récapitulatif vient de s\'ouvrir dans votre messagerie : il ne reste plus qu\'à l\'envoyer pour confirmer votre réservation.</p>'
+      + (buyer.sent === "auto"
+        ? '<span class="badge badge--success">'+icon("check",12)+' Commande enregistrée</span>'
+          + '<h1 style="font:var(--type-h1);margin:20px 0 12px">Merci, votre commande est validée.</h1>'
+          + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail de validation vient de vous être envoyé à '+buyer.email+'.'
+          + (buyer.pay === "surplace" ? '' : buyer.pay === "paypal" ? ' La confirmation de paiement suit dans un second e-mail.' : ' Vous recevrez la confirmation de paiement dès réception de votre virement Wero.')+'</p>'
+        : '<span class="badge badge--success">'+icon("check",12)+' E-mail préparé</span>'
+          + '<h1 style="font:var(--type-h1);margin:20px 0 12px">Merci, votre commande est prête à être envoyée.</h1>'
+          + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail récapitulatif vient de s\'ouvrir dans votre messagerie : il ne reste plus qu\'à l\'envoyer pour confirmer votre réservation.</p>')
+      + (buyer.paiement ? '<p style="font-size:14px;color:var(--text-3)">Référence '+buyer.ref+' · Paiement : '+buyer.paiement+'</p>' : '')
       + '<div class="ticket" style="text-align:left;max-width:380px;margin:32px auto">'
       +   items.map(i => '<div class="line"><span>'+i.qty+' × '+i.p.nom+'</span><span>'+fmt(i.qty*i.p.prix)+'</span></div>').join("")
       +   '<div class="total-row"><span>Total</span><span>'+fmt(total)+'</span></div>'
@@ -900,7 +975,13 @@ function renderCheckout(){
     stepBody =
       '<h3 style="font:var(--type-h3);margin:0 0 6px">Quel jour de retrait ?</h3>'
       + '<p style="color:var(--text-2);margin:0 0 20px;font-size:15px">Choisissez le jour où vous viendrez récupérer votre commande.</p>'
-      + '<div class="field"><label>Jour de retrait souhaité</label><input type="date" id="ckJour" value="'+buyer.jour+'"></div>'
+      + (function(){
+          const days = nextPickupDays(4);
+          if (!days.some(d => d.iso === buyer.jour)) buyer.jour = days[0].iso;
+          return '<div class="daychoice" role="radiogroup" aria-label="Jour de retrait">'
+            + days.map(d => '<label><input type="radio" name="ckJour" value="'+d.iso+'"'+(d.iso===buyer.jour?' checked':'')+'><span><b>'+formatDateFR(d.iso)+'</b><small>Commande jusqu’au '+d.deadline.toLocaleDateString("fr-FR",{weekday:"long"})+', 18 h</small></span></label>').join("")
+            + '</div>';
+        })()
       + '<div class="field"><label>Créneau souhaité (optionnel)</label><input type="text" id="ckCreneau" placeholder="ex. matin, 10 h - 12 h…" value="'+buyer.creneau+'"></div>'
       + '<div class="stepcard" style="display:flex;gap:14px;align-items:flex-start">'+icon("map-pin",20)+'<div><b>Remise en main propre</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14px">Adresse et horaires précisés dans votre e-mail de confirmation.</p></div></div>'
       + '<div style="display:flex;justify-content:flex-end;margin-top:28px"><button class="btn btn--primary btn--lg" onclick="ckNext()">Continuer '+icon("arrow-right",16)+'</button></div>';
@@ -917,15 +998,25 @@ function renderCheckout(){
       + '<label class="switch" style="margin:4px 0 8px"><input type="checkbox" id="ckNews" '+(buyer.news?"checked":"")+'> Recevoir la liste des pains de la semaine par e-mail</label>'
       + '<div style="display:flex;justify-content:space-between;margin-top:20px"><button class="btn btn--ghost" onclick="ckPrev()">'+icon("arrow-left",16)+' Retour</button><button class="btn btn--primary btn--lg" onclick="ckNext()">Continuer '+icon("arrow-right",16)+'</button></div>';
   } else {
+    if (!buyer.ref) buyer.ref = "CMD-" + Date.now().toString(36).toUpperCase().slice(-6);
+    const opt = (v, ic, t, d) => '<label><input type="radio" name="ckPay" value="'+v+'"'+(buyer.pay===v?' checked':'')+' onchange="setPay(this.value)"><span><b>'+icon(ic,18)+' '+t+'</b><small>'+d+'</small></span></label>';
+    const row = (k, v, first) => '<div style="display:flex;justify-content:space-between;gap:12px;font-size:15px;padding:8px 0'+(first?'':';border-top:var(--border-hair)')+'"><span>'+k+'</span><span>'+v+'</span></div>';
     stepBody =
-      '<h3 style="font:var(--type-h3);margin:0 0 6px">Récapitulatif</h3>'
-      + '<p style="color:var(--text-2);margin:0 0 20px;font-size:15px">Paiement sur place à l\'enlèvement — espèces ou virement. Aucune donnée bancaire n\'est demandée ici.</p>'
-      + '<div class="stepcard" style="margin-bottom:24px;padding:20px 24px">'
-      +   '<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0"><span>Demandeur</span><span>'+buyer.prenom+' '+buyer.nom+'</span></div>'
-      +   '<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0;border-top:var(--border-hair)"><span>E-mail</span><span>'+buyer.email+'</span></div>'
-      +   (buyer.tel ? '<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0;border-top:var(--border-hair)"><span>Téléphone</span><span>'+buyer.tel+'</span></div>' : "")
+      '<h3 style="font:var(--type-h3);margin:0 0 6px">Récapitulatif et paiement</h3>'
+      + '<div class="stepcard" style="margin:16px 0 24px;padding:20px 24px">'
+      +   row("Demandeur", buyer.prenom+' '+buyer.nom, true)
+      +   row("E-mail", buyer.email)
+      +   (buyer.tel ? row("Téléphone", buyer.tel) : "")
+      +   row("Référence", buyer.ref)
       + '</div>'
-      + '<div style="display:flex;justify-content:space-between"><button class="btn btn--ghost" onclick="ckPrev()">'+icon("arrow-left",16)+' Retour</button><button class="btn btn--primary btn--lg" onclick="ckSubmit()">Envoyer ma commande '+icon("arrow-right",16)+'</button></div>';
+      + '<div class="label" style="color:var(--stamp);margin-bottom:12px">Mode de paiement</div>'
+      + '<div class="paychoice" role="radiogroup" aria-label="Mode de paiement">'
+      +   opt("paypal","wallet","PayPal","Réglez depuis votre compte PayPal. Aucune saisie de carte sur ce site.")
+      +   opt("wero","smartphone","Wero","Paiement instantané depuis l’application de votre banque.")
+      +   opt("surplace","hand-coins","En main propre","Espèces ou virement à la remise des pains.")
+      + '</div>'
+      + '<div id="payZone"></div>'
+      + '<div style="margin-top:20px"><button class="btn btn--ghost" onclick="ckPrev()">'+icon("arrow-left",16)+' Retour</button></div>';
   }
 
   view.innerHTML =
@@ -935,11 +1026,71 @@ function renderCheckout(){
     +   '<div>'+stepBody+'</div>'
     +   '<aside class="ticket-aside">'+checkoutAsideHTML()+'</aside>'
     + '</div>';
+  if (checkoutStep === 2) renderPayZone();
+}
+
+/* ================= PAIEMENT ================= */
+function cartTotal(){ return Object.values(cart).reduce((s,i) => s + i.qty * i.p.prix, 0); }
+function setPay(v){ buyer.pay = v; renderPayZone(); }
+function payAndSend(label){ buyer.paiement = label; ckSubmit(); }
+function renderPayZone(){
+  const z = document.getElementById("payZone"); if (!z) return;
+  const total = cartTotal();
+  if (buyer.pay === "paypal") {
+    if (PAYPAL_CLIENT_ID.indexOf("REMPLACER") === 0) {
+      z.innerHTML = '<p class="paynote">Le paiement PayPal n’est pas encore configuré. Choisissez un autre mode de paiement.</p>';
+      return;
+    }
+    z.innerHTML = (TEST_MODE ? '<p class="paynote"><span class="badge badge--warning">Mode test</span> PayPal Sandbox : connectez-vous avec un compte acheteur de test, aucun argent réel.</p>' : '')
+      + '<div id="paypalBtns" style="max-width:420px"></div><p class="paynote">Montant : <b>'+fmt(total)+'</b>. Votre commande est envoyée automatiquement après validation du paiement.</p>';
+    loadPayPal().then(paypal => {
+      if (!document.getElementById("paypalBtns")) return;
+      paypal.Buttons({
+        fundingSource: paypal.FUNDING.PAYPAL,
+        style: { layout:"vertical", color:"black", shape:"rect", label:"pay" },
+        createOrder: (d, actions) => actions.order.create({
+          purchase_units: [{ reference_id: buyer.ref, description: BRAND_NAME + " — " + buyer.ref, amount: { currency_code:"EUR", value: total.toFixed(2) } }]
+        }),
+        onApprove: (d, actions) => actions.order.capture().then(res => (buyer.paypalOrderId = res.id, payAndSend((TEST_MODE ? "[TEST] " : "") + "PayPal — payé (transaction " + res.id + ")"))),
+        onError: () => showToast("Le paiement PayPal a échoué. Réessayez ou choisissez un autre mode.")
+      }).render("#paypalBtns");
+    }).catch(() => { z.innerHTML = '<p class="paynote">Impossible de charger PayPal. Vérifiez votre connexion ou choisissez un autre mode.</p>'; });
+  } else if (buyer.pay === "wero") {
+    z.innerHTML = '<div class="ticket" style="max-width:460px">'
+      + copyLine('Bénéficiaire Wero', WERO_ID || 'indisponible', WERO_ID)
+      + copyLine('Montant', fmt(total), total.toFixed(2).replace('.', ','))
+      + copyLine('Motif', buyer.ref, buyer.ref)
+      + '</div>'
+      + '<p class="paynote">Ouvrez l’application de votre banque, rubrique Wero, et envoyez le montant avec la référence en motif. La réception est vérifiée avant la remise.</p>'
+      + '<button class="btn btn--primary btn--lg" onclick="payAndSend(\'Wero — envoyé par le client, à vérifier\')">J’ai payé, envoyer ma commande '+icon("arrow-right",16)+'</button>';
+  } else {
+    z.innerHTML = '<p class="paynote">Vous réglez à la remise des pains, en espèces ou par virement.</p>'
+      + '<button class="btn btn--primary btn--lg" onclick="payAndSend(\'En main propre, à la remise\')">Envoyer ma commande '+icon("arrow-right",16)+'</button>';
+  }
+}
+function copyLine(label, shown, value){
+  return '<div class="line" style="align-items:center"><span>'+label+'</span><span style="display:flex;gap:8px;align-items:center"><b>'+shown+'</b>'
+    + (value ? '<button class="btn btn--ghost btn--sm" onclick="copyText(\''+String(value).replace(/'/g,"")+'\')" aria-label="Copier '+label+'">'+icon("copy",14)+'</button>' : '')
+    + '</span></div>';
+}
+function copyText(v){ navigator.clipboard.writeText(v).then(() => showToast("Copié : " + v), () => showToast(v)); }
+let paypalPromise = null;
+function loadPayPal(){
+  if (window.paypal) return Promise.resolve(window.paypal);
+  if (!paypalPromise) paypalPromise = new Promise((ok, ko) => {
+    const sc = document.createElement("script");
+    sc.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(PAYPAL_CLIENT_ID) + "&currency=EUR&intent=capture&components=buttons&disable-funding=card,credit,paylater,sepa";
+    sc.onload = () => ok(window.paypal);
+    sc.onerror = () => { paypalPromise = null; ko(); };
+    document.head.appendChild(sc);
+  });
+  return paypalPromise;
 }
 
 function ckNext(){
   if (checkoutStep === 0) {
-    buyer.jour = document.getElementById("ckJour").value;
+    const sel = document.querySelector('input[name="ckJour"]:checked');
+    buyer.jour = sel ? sel.value : "";
     buyer.creneau = document.getElementById("ckCreneau").value.trim();
   }
   if (checkoutStep === 1) {
@@ -956,7 +1107,23 @@ function ckNext(){
 }
 function ckPrev(){ checkoutStep--; window.scrollTo(0,0); renderCheckout(); }
 function ckSubmit(){
-  passCommande(buyer);
+  if (ORDER_WEBHOOK_URL) {
+    const items = Object.values(cart);
+    const payload = {
+      ref: buyer.ref, prenom: buyer.prenom, nom: buyer.nom, email: buyer.email, tel: buyer.tel,
+      jourISO: buyer.jour, lang: navigator.language || "fr-FR",
+      jourLabel: new Date(buyer.jour + "T00:00:00").toLocaleDateString(navigator.language || "fr-FR", { weekday:"long", day:"numeric", month:"long", year:"numeric" }), creneau: buyer.creneau, pay: buyer.pay,
+      paypalOrderId: buyer.paypalOrderId || "", test: TEST_MODE,
+      items: items.map(i => ({ nom: i.p.nom, qty: i.qty, prix: i.p.prix })), total: cartTotal()
+    };
+    /* text/plain : pas de pré-vérification CORS côté Apps Script */
+    fetch(ORDER_WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(payload) })
+      .catch(() => showToast("Envoi impossible, l’e-mail de commande s’ouvre à la place.") || passCommande(buyer));
+    buyer.sent = "auto";
+  } else {
+    passCommande(buyer);
+    buyer.sent = "mail";
+  }
   checkoutDone = true;
   window.scrollTo(0,0);
   renderCheckout();
@@ -983,6 +1150,7 @@ function showView(name){
   document.getElementById("view-home").style.display = name === "home" ? "" : "none";
   document.getElementById("view-farines").style.display = name === "farines" ? "" : "none";
   document.getElementById("view-checkout").style.display = name === "checkout" ? "" : "none";
+  document.getElementById("view-livraison").style.display = name === "livraison" ? "" : "none";
   document.querySelectorAll("#mainNav a[data-view]").forEach(a => a.classList.toggle("active", a.getAttribute("data-view") === name));
   window.scrollTo(0, 0);
   closeMenu();
@@ -1005,6 +1173,19 @@ async function loadSheet(){
   }
 }
 showView("home");
+/* Onglet "contact" : paires clé / valeur (ex. WERO_ID | 06…) */
+async function loadContact(){
+  try {
+    const res = await fetch(SHEET_CONTACT_CSV_URL, { cache: "no-store" });
+    if (!res.ok) return;
+    const kv = {};
+    parseCSVRows(await res.text()).forEach(r => { if (r[0]) kv[r[0].trim().toUpperCase()] = (r[1] || "").trim(); });
+    if (kv.WERO_ID) WERO_ID = kv.WERO_ID;
+    if (kv.ORDER_WEBHOOK_URL) ORDER_WEBHOOK_URL = kv.ORDER_WEBHOOK_URL;
+    if (checkoutStep === 2 && buyer.pay === "wero") renderPayZone();
+  } catch (e) {}
+}
+loadContact();
 loadSheet().then(loadFarines);
 </script>
 </body>
