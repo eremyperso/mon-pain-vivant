@@ -136,6 +136,10 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
 .placeholder{aspect-ratio:5/4;background:repeating-linear-gradient(135deg,var(--flour-200) 0 8px,var(--flour-300) 8px 9px);display:flex;align-items:flex-end;justify-content:center;padding:16px;border-radius:var(--radius-2)}
 @media(max-width:860px){.placeholder{aspect-ratio:4/3}}
+/* Photo d'accueil : remplit le cadre au format fixe (recadrée au centre) */
+.placeholder--photo{position:relative;overflow:hidden;background:none}
+.placeholder--photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.placeholder--photo span{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);white-space:nowrap}
 .placeholder span{font:var(--type-label);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);background:var(--flour-50);padding:4px 8px;border-radius:var(--radius-1)}
 
 /* ============ TRUST STRIP ============ */
@@ -302,6 +306,13 @@ header{position:sticky;top:0;z-index:60;background:var(--bg-page)}
 .legal p{margin:0 0 10px}
 .legal ul{margin:0 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:8px}
 .legal b{color:var(--text-1)}
+.pv-info-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;border:none;border-radius:50%;background:transparent;color:var(--text-2);cursor:pointer}
+/* Infobulle (i) : au survol, au toucher (focus) ou au clavier, par-dessus la page sans décaler le contenu */
+.pv-tip{position:relative;display:inline-flex}
+.pv-tip:hover .pv-info-btn,.pv-info-btn:focus-visible,.pv-info-btn:focus{background:var(--surface-sunken);color:var(--accent);outline:none}
+.pv-tip__bubble{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:20;width:max-content;max-width:min(260px,80vw);padding:10px 12px;font:400 14px/1.45 var(--font-sans,inherit);letter-spacing:normal;text-transform:none;color:var(--text-1,inherit);background:var(--surface-card);border:var(--border-hair);border-radius:var(--radius-2);box-shadow:0 6px 20px rgba(0,0,0,.12);opacity:0;visibility:hidden;transition:opacity .15s;pointer-events:none}
+.pv-tip:hover .pv-tip__bubble,.pv-tip:focus-within .pv-tip__bubble{opacity:1;visibility:visible}
+@media(max-width:760px){.pv-tip__bubble{left:0;transform:none}}
 .legal .todo{background:var(--warning-soft);color:var(--warning);padding:0 4px;border-radius:var(--radius-1)}
 .legal-table{border:var(--border-hair);border-radius:var(--radius-2);overflow:hidden;font-size:15px;margin-bottom:12px}
 .legal-row{display:grid;grid-template-columns:1.1fr 1.4fr .9fr .9fr;gap:12px;padding:12px 16px;background:var(--surface-card);border-top:var(--border-hair);color:var(--text-1)}
@@ -414,15 +425,15 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <button class="iconbtn menubtn" id="menuBtn" aria-label="Menu"></button>
     <a class="wordmark" onclick="showView('home');scrollToId('top')"><span class="name" id="brandName">Au Temps du Pain</span><span class="sub" id="brandSub">Pain au levain naturel</span></a>
     <nav class="mainnav" id="mainNav">
-      <a data-view="home" onclick="showView('home');scrollToId('boutique')">Nos produits</a>
-      <a data-view="farines" onclick="showView('farines')">Nos farines</a>
+      <a data-view="home" onclick="showView('home');scrollToId('boutique')">Mes produits</a>
+      <a data-view="farines" onclick="showView('farines')">Les farines</a>
       <a data-view="livraison" onclick="showView('livraison')">Remise en main propre</a>
     </nav>
     <button class="iconbtn" id="cartBtn" aria-label="Panier"></button>
   </div>
   <nav class="mobilemenu" id="mobileMenu">
-    <a onclick="showView('home');scrollToId('boutique');closeMenu()">Nos produits</a>
-    <a onclick="showView('farines');closeMenu()">Nos farines</a>
+    <a onclick="showView('home');scrollToId('boutique');closeMenu()">Mes produits</a>
+    <a onclick="showView('farines');closeMenu()">Les farines</a>
     <a onclick="showView('livraison');closeMenu()">Remise en main propre</a>
   </nav>
 </header>
@@ -434,20 +445,20 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <div>
       <div class="label" style="color:var(--accent);margin-bottom:16px">Fournées fraîches, à réserver en ligne</div>
       <h1>Pain au levain naturel,<br>cuit maison.</h1>
-      <p class="lede" id="heroLede">Choisissez vos pains, réglez en ligne… non, réservez-les simplement, et venez les récupérer sur place.</p>
+      <p class="lede" id="heroLede">Choisissez vos pains. Réservez votre sélection artisanale en quelques clics.</p>
       <div class="hero-actions">
         <button class="btn btn--primary btn--lg" onclick="scrollToId('boutique')">Découvrir les produits <span class="icon" style="width:18px;height:18px;--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/arrow-right.svg')"></span></button>
         <button class="btn btn--secondary btn--lg" onclick="showView('livraison')">Remise en main propre</button>
       </div>
     </div>
-    <div class="placeholder"><span>Photo — fournée du jour</span></div>
+    <div class="placeholder" id="heroPhoto"><span>Le pain, notre histoire</span></div>
   </section>
 
   <div class="trust" id="trustStrip"></div>
 
   <section class="section" id="boutique">
     <div class="section-head">
-      <h2>Nos produits</h2>
+      <h2>Mes produits</h2>
     </div>
     <div class="tabs" id="tabs"></div>
     <div class="filterbar">
@@ -463,8 +474,8 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 
 <div class="wrap" id="view-farines" style="display:none;padding-top:48px">
   <div class="label" style="color:var(--stamp);margin-bottom:10px">Meunier de Versailles</div>
-  <h1 style="font:var(--type-h1);margin:0 0 12px">Nos farines et graines</h1>
-  <p class="lede" style="max-width:620px;margin:0 0 40px">Toutes les farines et graines de nos pains viennent du Meunier de Versailles. Voici, pour chacune, les produits où vous la retrouvez.</p>
+  <h1 style="font:var(--type-h1);margin:0 0 12px">Les farines et graines</h1>
+  <p class="lede" style="max-width:620px;margin:0 0 40px">Toutes les farines et graines de mes pains viennent du Meunier de Versailles. Voici, pour chacune, les produits où vous la retrouvez.</p>
   <div id="farinesContent">
     <div class="state"><div class="spin"></div>Chargement des farines…</div>
   </div>
@@ -477,9 +488,9 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 <div class="wrap" id="view-legal" style="display:none;padding-top:48px">
   <h1 style="font:var(--type-h1);margin:0 0 24px">Informations légales</h1>
   <div class="tabs" id="legalTabs"><button class="tab" data-tab="cgv" onclick="showLegal('cgv')">CGV</button><button class="tab" data-tab="rgpd" onclick="showLegal('rgpd')">Confidentialité</button><button class="tab" data-tab="mentions" onclick="showLegal('mentions')">Mentions légales</button></div>
-  <div class="legal" data-panel="cgv"><p>Dernière mise à jour : <span class="js-date"></span>. Les présentes conditions générales de vente (CGV) s’appliquent à toute commande passée sur le site <b>autantdupain.eremy.fr</b>. Passer commande vaut acceptation des CGV en vigueur au jour de la commande.</p><h3>1. Vendeur</h3><p><span class="js-brand"></span>, activité exercée par <mark class="todo">[Prénom Nom]</mark>, <mark class="todo">[statut : micro-entrepreneur]</mark>, SIRET <mark class="todo">[n° SIRET]</mark>, <mark class="todo">[adresse]</mark>. Contact : <a class="js-mail"></a>.</p><h3>2. Produits</h3><p>Pains au levain, douceurs, farines et graines, fabriqués ou conditionnés à la commande, dans la limite des quantités de chaque fournée. Les photos sont non contractuelles. La composition, les allergènes et la durée de conservation de chaque produit figurent sur sa fiche. Pour toute allergie, contactez-nous avant de commander : nos produits sont fabriqués dans un atelier qui utilise du gluten, du sésame, des fruits à coque, du lait et des œufs.</p><h3>3. Prix</h3><p>Les prix sont indiqués en euros, toutes taxes comprises (<mark class="todo">[TVA non applicable, art. 293 B du CGI]</mark>). Les options (demi-pain, cuisson du matin, tranchage) sont facturées au tarif affiché sur la fiche produit au moment de la commande. Aucun frais de livraison : les produits sont remis en main propre.</p><h3>4. Commande</h3><p>La commande se fait en trois étapes : choix du jour de remise, fiche demandeur (prénom, nom, e-mail, téléphone facultatif), puis choix du mode de paiement. Un e-mail de validation récapitulant la commande est envoyé à l’adresse indiquée. Le vendeur peut refuser une commande en cas de rupture ou de motif légitime ; le client en est alors informé et, le cas échéant, remboursé.</p><h3>5. Paiement</h3><p>Trois modes sont proposés, sans saisie de numéro de carte sur le site :</p><ul><li><b>PayPal</b> : paiement depuis votre compte PayPal, sur l’interface sécurisée de PayPal (Europe) S.à r.l. et Cie, S.C.A. Le site ne reçoit ni ne conserve aucune donnée bancaire.</li><li><b>Wero</b> : paiement instantané depuis l’application de votre banque, au bénéficiaire et avec la référence indiqués. La commande est considérée comme payée à réception effective des fonds.</li><li><b>En main propre</b> : en espèces ou par virement lors de la remise.</li></ul><p>Une confirmation de paiement est envoyée par e-mail dès que le paiement est reçu et vérifié.</p><h3>6. Modification et annulation</h3><p>Toute commande peut être modifiée ou annulée <b>jusqu’à l’avant-veille du jour de remise, 18 h</b> (samedi pour le lundi, mardi pour le jeudi), en répondant à l’e-mail de validation. Ce délai correspond au rafraîchi du levain et à la pousse de la pâte. Une commande annulée dans ce délai et déjà réglée est intégralement remboursée par le même moyen de paiement, sous 14 jours au plus. Passé ce délai, la commande est due.</p><h3>7. Droit de rétractation</h3><p>Conformément à l’article L221-28 du Code de la consommation, le droit de rétractation ne s’applique pas aux biens susceptibles de se détériorer ou de se périmer rapidement, ni aux biens confectionnés selon les spécifications du consommateur. Les pains et douceurs sont concernés. Pour les farines et graines non ouvertes, vous disposez d’un délai de 14 jours à compter de la remise pour exercer votre droit de rétractation en nous écrivant à <a class="js-mail"></a>.</p><h3>8. Remise des produits</h3><p>Remise en main propre le lundi ou le jeudi choisi lors de la commande, à l’adresse et aux horaires confirmés par e-mail. Aucune livraison à domicile. Une commande non retirée le jour prévu, sans prévenir, reste due et ne peut être conservée au-delà de la journée.</p><h3>9. Réclamations et garanties</h3><p>Toute réclamation (produit manquant, non conforme) est à adresser le jour de la remise à <a class="js-mail"></a>. Les garanties légales de conformité (art. L217-3 et suivants du Code de la consommation) et des vices cachés (art. 1641 et suivants du Code civil) s’appliquent.</p><h3>10. Médiation et litiges</h3><p>En cas de litige non résolu à l’amiable, le client consommateur peut recourir gratuitement au médiateur de la consommation : <mark class="todo">[nom, site et adresse du médiateur]</mark>. Les présentes CGV sont soumises au droit français.</p></div>
-  <div class="legal" data-panel="rgpd"><p>Dernière mise à jour : <span class="js-date"></span>. Cette politique explique quelles données sont collectées lorsque vous commandez sur ce site, pourquoi, et quels sont vos droits, conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés.</p><h3>Responsable du traitement</h3><p><mark class="todo">[Prénom Nom]</mark> (<span class="js-brand"></span>), <mark class="todo">[adresse]</mark>. Contact : <a class="js-mail"></a>.</p><h3>Données collectées et finalités</h3><div class="legal-table"><div class="legal-row legal-row--head"><span>Finalité</span><span>Données</span><span>Base légale</span><span>Durée de conservation</span></div><div class="legal-row"><span>Traiter et remettre la commande</span><span>Prénom, nom, e-mail, téléphone (facultatif), jour de remise, produits commandés</span><span>Exécution du contrat</span><span>3 ans après la dernière commande</span></div><div class="legal-row"><span>Envoyer les e-mails de commande et de paiement</span><span>E-mail, prénom, référence et contenu de la commande</span><span>Exécution du contrat</span><span>Durée de conservation de la commande</span></div><div class="legal-row"><span>Paiement PayPal</span><span>Identifiant de transaction et statut du paiement. Vos données de compte et bancaires sont traitées par PayPal seul.</span><span>Exécution du contrat</span><span>10 ans (pièces comptables)</span></div><div class="legal-row"><span>Paiement Wero ou en main propre</span><span>Montant, référence, date de réception</span><span>Exécution du contrat / obligation légale</span><span>10 ans (pièces comptables)</span></div><div class="legal-row"><span>Comptabilité</span><span>Référence, montant, mode de paiement</span><span>Obligation légale (art. L123-22 du Code de commerce)</span><span>10 ans</span></div><div class="legal-row"><span>Liste des pains de la semaine (si cochée)</span><span>E-mail</span><span>Consentement</span><span>Jusqu’au désabonnement</span></div></div><p>Aucune donnée n’est vendue, louée ni utilisée à des fins publicitaires. Aucune décision automatisée ni profilage n’est effectué.</p><h3>Destinataires et sous-traitants</h3><ul><li><b>PayPal (Europe) S.à r.l. et Cie, S.C.A.</b>, 22-24 boulevard Royal, L-2449 Luxembourg : paiement en ligne. PayPal agit en <b>responsable de traitement indépendant</b> pour les données que vous lui fournissez (compte, moyen de paiement, lutte contre la fraude) ; voir sa <a href="https://www.paypal.com/fr/legalhub/privacy-full" target="_blank" rel="noopener">déclaration de confidentialité</a>. Le module PayPal n’est chargé qu’à l’étape de paiement, si vous choisissez PayPal.</li><li><b>Votre banque, via Wero</b> (European Payments Initiative) : paiement instantané, traité par votre établissement bancaire selon ses propres conditions.</li><li><b>Google Ireland Ltd</b> (Google Sheets, Apps Script, Gmail) : enregistrement des commandes et envoi des e-mails. Transferts éventuels vers les États-Unis encadrés par le Data Privacy Framework et les clauses contractuelles types.</li><li><b>Brevo (Sendinblue SAS)</b>, 106 boulevard Haussmann, 75008 Paris : envoi des e-mails transactionnels, données hébergées dans l’Union européenne.</li><li><b>GitHub Inc.</b> (hébergement du site) : journaux techniques de connexion (adresse IP). Transfert vers les États-Unis encadré par le Data Privacy Framework.</li></ul><h3>Sécurité</h3><p>Le site est servi en HTTPS. Aucune donnée bancaire ne transite par le site ni n’y est stockée. L’accès au fichier des commandes est limité au vendeur.</p><h3>Vos droits</h3><p>Vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité de vos données, ainsi que du droit de retirer votre consentement à tout moment et de définir des directives sur le sort de vos données après votre décès. Écrivez à <a class="js-mail"></a> ; une réponse vous est apportée sous un mois. Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a>.</p><h3>Cookies</h3><p>Ce site ne dépose <b>aucun cookie publicitaire ni de mesure d’audience</b>. Aucun bandeau de consentement n’est donc nécessaire pour la navigation.</p><h3>Stockage strictement nécessaire</h3><p>Le panier est conservé uniquement en mémoire, le temps de votre visite. Ces traitements sont exemptés de consentement (art. 82 de la loi Informatique et Libertés).</p><h3>Services tiers</h3><ul><li><b>PayPal</b> : si vous choisissez PayPal à l’étape de paiement, le module PayPal est chargé et peut déposer des cookies nécessaires au paiement et à la prévention de la fraude. Il n’est jamais chargé avant ce choix.</li><li><b>Google Fonts et images Google Drive</b> : l’affichage des polices et des photos produits entraîne la transmission de votre adresse IP à Google.</li></ul><p>Vous pouvez à tout moment supprimer les cookies depuis les réglages de votre navigateur. Pour toute question : <a class="js-mail"></a>.</p><div style="margin-top:8px"><button class="btn btn--secondary" onclick="openCookies()">Gérer mes cookies</button></div></div>
-  <div class="legal" data-panel="mentions"><h3>Éditeur du site</h3><p><mark class="todo">[Prénom Nom]</mark>, <mark class="todo">[statut : micro-entrepreneur]</mark> · <mark class="todo">[adresse]</mark> · SIRET <mark class="todo">[n° SIRET]</mark> · <mark class="todo">[TVA non applicable, art. 293 B du CGI]</mark> · Contact : <a class="js-mail"></a>. Directeur de la publication : <mark class="todo">[Prénom Nom]</mark>.</p><h3>Activité alimentaire</h3><p>Fabrication artisanale de pains déclarée auprès de la DDPP <mark class="todo">[département]</mark> <mark class="todo">[n° de déclaration / agrément si applicable]</mark>. Informations sur les allergènes conformes au règlement (UE) n° 1169/2011, disponibles sur chaque fiche produit.</p><h3>Hébergeur</h3><p>GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis · <a href="https://github.com" target="_blank" rel="noopener">github.com</a>.</p><h3>Prestataires</h3><p>Paiement : PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 boulevard Royal, L-2449 Luxembourg. E-mails : Brevo (Sendinblue SAS), 106 boulevard Haussmann, 75008 Paris. Données de commande : Google Ireland Ltd, Gordon House, Barrow Street, Dublin 4, Irlande.</p><h3>Propriété intellectuelle</h3><p>Les textes, photos et le logo de ce site sont la propriété de l’éditeur. Toute reproduction sans autorisation est interdite.</p></div>
+  <div class="legal" data-panel="cgv"><p>Dernière mise à jour : <span class="js-date"></span>. Les présentes conditions générales de vente (CGV) s’appliquent à toute commande passée sur le site <b>autantdupain.eremy.fr</b>. Passer commande vaut acceptation des CGV en vigueur au jour de la commande.</p><h3>1. Vendeur</h3><p><span class="js-brand"></span>. Contact : <a class="js-mail"></a>.</p><h3>2. Produits</h3><p>Je propose des pains au levain, des douceurs, des farines et des graines, fabriqués ou conditionnés à la commande, dans la limite des quantités de chaque fournée. Les photos sont non contractuelles. La composition, les allergènes et la durée de conservation de chaque produit figurent sur sa fiche. En cas d’allergie, contactez-moi avant de commander </p><h3>3. Prix</h3><p>Les prix sont indiqués en euros. Les options (demi-pain, cuisson du matin, tranchage) sont facturées au tarif affiché sur la fiche produit au moment de la commande. Aucun frais de livraison : les produits sont remis en main propre.</p><h3>4. Commande</h3><p>La commande se fait en trois étapes : choix du jour de remise, coordonnées (prénom, nom, e-mail obligatoire, téléphone facultatif), puis choix du mode de paiement. Je vous envoie un e-mail de validation récapitulant la commande. Je peux refuser une commande en cas de rupture ou de motif légitime ; je vous en informe alors et, le cas échéant, vous rembourse.</p><h3>5. Paiement</h3><p>Trois modes sont proposés, sans saisie de numéro de carte sur le site :</p><ul><li><b>PayPal</b> : paiement depuis votre compte PayPal, sur l’interface sécurisée de PayPal. Le site ne reçoit ni ne conserve aucune donnée bancaire.</li><li><b>Wero</b> : paiement instantané depuis l’application de votre banque, au bénéficiaire et avec la référence indiqués. La commande est considérée comme payée à réception effective des fonds.</li><li><b>En main propre</b> : en espèces ou par virement lors de la remise.</li></ul><p>Je vous envoie une confirmation de paiement par e-mail dès réception et vérification du paiement.</p><h3>6. Modification et annulation</h3><p>Vous pouvez modifier ou annuler votre commande <b>jusqu’à l’avant-veille du jour de remise, 18 h</b> (samedi pour le lundi, mardi pour le jeudi), en répondant à l’e-mail de validation. Ce délai correspond au rafraîchi du levain et à la pousse de la pâte. Une commande annulée dans ce délai et déjà réglée est intégralement remboursée par le même moyen de paiement, sous 14 jours au plus. Passé ce délai, la commande est due.</p><h3>7. Droit de rétractation</h3><p>Conformément à l’article L221-28 du Code de la consommation, le droit de rétractation ne s’applique pas aux biens susceptibles de se détériorer ou de se périmer rapidement, ni aux biens confectionnés selon les spécifications du consommateur : les pains et douceurs sont concernés. Pour les farines et graines non ouvertes, vous disposez de 14 jours à compter de la remise pour vous rétracter en m’écrivant à <a class="js-mail"></a>.</p><h3>8. Remise des produits</h3><p>Remise en main propre le lundi ou le jeudi choisi lors de la commande, à l’adresse et aux horaires confirmés par e-mail. Aucune livraison à domicile. Une commande non retirée le jour prévu, sans prévenir, reste due et ne peut être conservée au-delà de la journée.</p><h3>9. Réclamations</h3><p>Toute réclamation (produit manquant, non conforme) est à m’adresser le jour de la remise à <a class="js-mail"></a> : je recherche avec vous une solution amiable. Les garanties légales de conformité et des vices cachés s’appliquent. Les présentes CGV sont soumises au droit français.</p></div>
+  <div class="legal" data-panel="rgpd"><p>Dernière mise à jour : <span class="js-date"></span>. Cette page explique quelles données je collecte lorsque vous commandez sur ce site, pourquoi, et quels sont vos droits, conformément au Règlement général sur la protection des données (RGPD).</p><h3>Responsable du traitement</h3><p><span class="js-brand"></span>. Contact : <a class="js-mail"></a>.</p><h3>Données collectées et utilisation</h3><ul><li><b>Pour traiter votre commande</b> : prénom, nom, e-mail, jour de remise et produits commandés. Le <b>téléphone est facultatif</b> et ne sert qu’en cas d’imprévu.</li><li><b>Pour vous envoyer les e-mails</b> de validation de commande et de confirmation de paiement : votre e-mail.</li><li><b>Pour le suivi des paiements</b> : montant, référence, mode de paiement et, pour PayPal, l’identifiant de transaction. Aucune donnée bancaire ne transite par le site.</li><li><b>Liste des pains de la semaine</b>, uniquement si vous cochez la case : votre e-mail, jusqu’à votre désinscription.</li></ul><p>Ces données sont conservées le temps nécessaire au suivi des commandes et à la tenue de mes comptes. <b>Aucune donnée personnelle n’est vendue, louée ni cédée</b>, ni utilisée à des fins publicitaires.</p><h3>Destinataires et sous-traitants</h3><p>Vos données ne sont accessibles qu’à moi et aux services techniques nécessaires au fonctionnement du site :</p><ul><li><b>Google</b> (Google Sheets, Apps Script) : enregistrement des commandes.</li><li><b>Brevo</b> (France) : envoi des e-mails de commande, données hébergées dans l’Union européenne.</li><li><b>PayPal</b> : paiement en ligne, si vous choisissez ce mode. PayPal traite vos données de compte et de paiement selon sa propre <a href="https://www.paypal.com/fr/legalhub/privacy-full" target="_blank" rel="noopener">politique de confidentialité</a> ; son module n’est chargé qu’à l’étape de paiement.</li><li><b>Votre banque, via Wero</b> : paiement instantané, si vous choisissez ce mode.</li><li><b>GitHub</b> : hébergement du site (journaux techniques de connexion).</li></ul><h3>Vos droits</h3><p>Vous pouvez à tout moment accéder à vos données, les faire corriger ou supprimer, et vous désinscrire de la liste des pains de la semaine. Écrivez-moi simplement à <a class="js-mail"></a> : je vous réponds sous un mois au plus.</p><h3>Cookies</h3><p>Ce site ne dépose <b>aucun cookie publicitaire ni de mesure d’audience</b>. Le panier est conservé uniquement en mémoire, le temps de votre visite.</p><ul><li><b>PayPal</b> : si vous choisissez PayPal à l’étape de paiement, son module peut déposer des cookies nécessaires au paiement et à la prévention de la fraude. Il n’est jamais chargé avant ce choix.</li><li><b>Google Fonts et images Google Drive</b> : l’affichage des polices et des photos transmet votre adresse IP à Google.</li></ul><p>Vous pouvez supprimer les cookies à tout moment depuis les réglages de votre navigateur.</p><div style="margin-top:8px"><button class="btn btn--secondary" onclick="openCookies()">Gérer mes cookies</button></div></div>
+  <div class="legal" data-panel="mentions"><h3>Éditeur du site</h3><p><span class="js-brand"></span> · Contact : <a class="js-mail"></a>. Direction de la publication : <span class="js-brand"></span>.</p><h3>Activité</h3><p>Fabrication artisanale de pains au levain naturel. Les informations sur les allergènes, conformes au règlement (UE) n° 1169/2011, figurent sur chaque fiche produit. En cas de doute, contactez-moi avant de commander.</p><h3>Hébergeur</h3><p>GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis · <a href="https://github.com" target="_blank" rel="noopener">github.com</a>.</p><h3>Prestataires</h3><p>Paiement : PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 boulevard Royal, L-2449 Luxembourg. E-mails : Brevo (Sendinblue SAS), 106 boulevard Haussmann, 75008 Paris. Données de commande : Google Ireland Ltd, Gordon House, Barrow Street, Dublin 4, Irlande.</p><h3>Propriété intellectuelle</h3><p>Les textes, photos et le logo de ce site sont la propriété de <span class="js-brand"></span>. Toute reproduction sans autorisation est interdite.</p></div>
 </div>
 
 <div class="wrap" id="view-livraison" style="display:none;padding-top:48px">
@@ -501,7 +512,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <details><summary>Faut-il créer un compte ?</summary><p>Non. Vos nom, e-mail et téléphone sont demandés dans la fiche demandeur, uniquement pour préparer et remettre votre commande.</p></details>
     <details><summary>Comment se passe le paiement ?</summary><p>Le paiement se fait sur place, à la remise des pains : en espèces ou par virement. Aucune donnée bancaire n’est demandée sur le site.</p></details>
     <details><summary>Puis-je modifier ou annuler ma commande ?</summary><p>Oui, jusqu’à l’avant-veille du jour de remise, 18 h, en répondant simplement à l’e-mail de commande.</p></details>
-    <details><summary>Que se passe-t-il si un pain manque ?</summary><p>Nous vous prévenons par e-mail avant le jour de remise et la ligne concernée est retirée de votre commande.</p></details>
+    <details><summary>Que se passe-t-il si un pain manque ?</summary><p>Je vous préviens par e-mail avant le jour de remise et la ligne concernée est retirée de votre commande.</p></details>
     <details><summary>Le pain tranché se garde-t-il ?</summary><p>Un à deux jours de moins qu’un pain entier. Conservez-le dans un sac en tissu ou un linge.</p></details>
   </div>
   <div style="margin-top:40px"><button class="btn btn--primary" onclick="showView('home');scrollToId('boutique')">Découvrir les produits</button></div>
@@ -513,7 +524,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
       <span class="icon" style="width:30px;height:30px;color:var(--accent);--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/mail.svg')"></span>
       <div>
         <b>Une question, une commande spéciale ?</b>
-        <p style="margin:4px 0 0;color:var(--text-2);font-size:14px">Écrivez-nous à <a href="mailto:CONTACT_EMAIL_PLACEHOLDER" id="contactMailLink">CONTACT_EMAIL_PLACEHOLDER</a>. Réponse sous 24 à 48 h.</p>
+        <p style="margin:4px 0 0;color:var(--text-2);font-size:14px">Écrivez-moi à <a href="mailto:CONTACT_EMAIL_PLACEHOLDER" id="contactMailLink">CONTACT_EMAIL_PLACEHOLDER</a>. Réponse sous 24 à 48 h.</p>
       </div>
     </div>
   </section>
@@ -528,7 +539,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
     <div class="foot-col">
       <span class="label">Produits</span>
       <a onclick="showView('home');scrollToId('boutique')">Tous les produits</a>
-      <a onclick="showView('farines')">Nos farines</a>
+      <a onclick="showView('farines')">Les farines</a>
       <a onclick="showView('livraison')">Remise en main propre</a>
     </div>
     <div class="foot-col">
@@ -611,7 +622,7 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOY
 // nom, description, tag_produit (doit correspondre exactement à une valeur de la
 // colonne "tags" des produits, pour relier la farine aux produits qui l'utilisent), photo (optionnel)
 const SHEET_FARINES_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=2039655305";
-const CONTACT_EMAIL = "eremy.perso@gmail.com";
+let CONTACT_EMAIL = "contact@autantdupain.eremy.fr";  /* surchargé par CONTACT_EMAIL de l'onglet contact */
 /* ---- Paiement dématérialisé (aucune saisie de numéro de carte sur le site) ----
    PAYPAL_CLIENT_ID : Client ID "Live" de l'application PayPal (developer.paypal.com > Apps & Credentials).
    WERO_ID          : lu dans l'onglet "contact" du Google Sheet (ligne WERO_ID | valeur). */
@@ -621,7 +632,8 @@ const PAYPAL_CLIENT_ID_LIVE = "REMPLACER_PAR_CLIENT_ID_PAYPAL";
 const PAYPAL_CLIENT_ID_SANDBOX = "BAAasmO3uv9_lk0dAwxLCYh6PfRMSaycO4kI-AfwTlZ89DmO4uLsBRKNMMfWWnuFRXwzEC9zCHojEt1wCI";
 const TEST_MODE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || new URLSearchParams(location.search).has("test");
 const PAYPAL_CLIENT_ID = TEST_MODE ? PAYPAL_CLIENT_ID_SANDBOX : PAYPAL_CLIENT_ID_LIVE;
-const SHEET_CONTACT_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/gviz/tq?tqx=out:csv&sheet=contact";
+/* Export CSV brut (gid de l'onglet contact) : l'API gviz typait la colonne B en nombre et vidait les valeurs texte. */
+const SHEET_CONTACT_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=364065721";
 let WERO_ID = "";
 let ORDER_WEBHOOK_URL = "";  /* onglet contact : ORDER_WEBHOOK_URL = URL de l'application Web Apps Script */
 const BRAND_NAME = "Au Temps du Pain";
@@ -638,10 +650,11 @@ const EMOJI = {
 document.getElementById("brandName").textContent = BRAND_NAME;
 document.getElementById("brandNameFoot").textContent = BRAND_NAME;
 document.getElementById("brandSub").textContent = BRAND_SUB;
-document.getElementById("contactMailLink").textContent = CONTACT_EMAIL;
-document.getElementById("contactMailLink").href = "mailto:" + CONTACT_EMAIL;
 document.getElementById("brandNameCopy").textContent = BRAND_NAME;
-document.querySelectorAll(".js-mail").forEach(a => { a.textContent = CONTACT_EMAIL; a.href = "mailto:" + CONTACT_EMAIL; });
+function applyContactEmail(){
+  document.querySelectorAll("#contactMailLink, .js-mail").forEach(a => { a.textContent = CONTACT_EMAIL; a.href = "mailto:" + CONTACT_EMAIL; });
+}
+applyContactEmail();
 document.querySelectorAll(".js-brand").forEach(e => e.textContent = BRAND_NAME);
 document.querySelectorAll(".js-date").forEach(e => e.textContent = "29 septembre 2026");
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -654,9 +667,9 @@ document.getElementById("menuBtn").innerHTML = icon("menu");
 document.getElementById("cartBtn").innerHTML = icon("shopping-basket") + '<span class="iconbtn__count" id="cartCount" style="display:none">0</span>';
 
 document.getElementById("trustStrip").innerHTML = [
-  ["wheat","100 % levain","Aucune levure ajoutée, levain naturel entretenu maison."],
-  ["package-check","Fait maison","Ingrédients simples, sélectionnés avec soin."],
-  ["sunrise","Fournées fraîches","Cuit le jour même, à retirer sur place."]
+  ["wheat","100 % levain","Farine, eau, sel et levain naturel : aucune levure ni additif. Une fermentation lente pour plus de goût, une mie qui se garde plusieurs jours et un pain souvent jugé plus digeste."],
+  ["package-check","Fait maison","Farines sélectionnées auprès du Moulin de Versailles, un moulin artisanal reconnu pour son savoir-faire meunier. Graines soigneusement sélectionnées par mes soins"],
+  ["flame","Cuisson au four","D’abord à la vapeur pour que le pain se développe, puis en chaleur sèche pour une croûte dorée et croustillante."]
 ].map(function(x){
   return '<div>'+icon(x[0],22)+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div></div>';
 }).join("");
@@ -921,7 +934,7 @@ function renderProduct(){
   const related = allProducts.filter(x => x.id !== p.id && x.stock !== "out").slice(0, 3);
   const plus = n => '+' + fmt(n).replace(/\u00a0?€$/, "\u00a0€");
   document.getElementById("view-produit").innerHTML =
-    '<nav class="pv-crumbs"><a onclick="showView(\'home\');scrollToId(\'boutique\')">Nos produits</a>'+icon("chevron-right",14)
+    '<nav class="pv-crumbs"><a onclick="showView(\'home\');scrollToId(\'boutique\')">Mes produits</a>'+icon("chevron-right",14)
     + '<a onclick="showView(\'home\');setCat(\''+p.categorie+'\');scrollToId(\'boutique\')">'+catLabel+'</a>'+icon("chevron-right",14)+'<span>'+p.nom+'</span></nav>'
     + '<div class="pv-grid">'
     +   '<div class="pv-media">'+photoBox(p.photo, p.nom, "4/3")+extra+'</div>'
@@ -944,7 +957,10 @@ function renderProduct(){
     +     (p.stock==="low" ? '<p style="font-size:14px;color:var(--warning);margin:12px 0 0">Plus que quelques pièces pour cette fournée.</p>' : '')
     +     ((p.allergenes||p.conservation) ? '<div class="pv-info">'
     +        (p.allergenes ? '<div><div class="pv-label" style="margin-bottom:6px">Allergènes</div><div>'+p.allergenes+'</div></div>' : '')
-    +        (p.conservation ? '<div><div class="pv-label" style="margin-bottom:6px">Conservation</div><div>'+p.conservation+'</div></div>' : '')
+    +        (p.conservation ? '<div><div class="pv-label" style="margin-bottom:6px;display:flex;align-items:center;gap:6px">Conservation'
+    +        '<span class="pv-tip"><button type="button" class="pv-info-btn" aria-label="Conseils de conservation" aria-describedby="tipConservation">'+icon("info",14)+'</button>'
+    +        '<span class="pv-tip__bubble" role="tooltip" id="tipConservation">Légèrement moins longtemps une fois tranché. Pour une conservation optimale, privilégiez un sac en tissu ou une boîte à pain.</span></span></div>'
+    +        '<div>'+p.conservation+'</div></div>' : '')
     +      '</div>' : '')
     +   '</div>'
     + '</div>'
@@ -1175,8 +1191,8 @@ function renderCheckout(){
       +   '<div class="field"><label>Prénom</label><input type="text" id="ckPrenom" placeholder="Marie" value="'+buyer.prenom+'"></div>'
       +   '<div class="field"><label>Nom</label><input type="text" id="ckNom" placeholder="Dupont" value="'+buyer.nom+'"></div>'
       + '</div>'
-      + '<div class="field"><label>E-mail</label><input type="email" id="ckEmail" placeholder="marie@exemple.fr" value="'+buyer.email+'"><span class="hint">Pour la confirmation de commande.</span></div>'
-      + '<div class="field"><label>Téléphone</label><input type="tel" id="ckTel" placeholder="06 12 34 56 78" value="'+buyer.tel+'"><span class="hint">Uniquement en cas d\'imprévu sur la commande.</span></div>'
+      + '<div class="field"><label>E-mail <span style="color:var(--danger)">*</span></label><input type="email" id="ckEmail" required autocomplete="email" inputmode="email" placeholder="marie@exemple.fr" value="'+buyer.email+'"><span class="hint">Obligatoire : la confirmation de commande vous est envoyée à cette adresse.</span></div>'
+      + '<div class="field"><label>Téléphone <span style="font-weight:400;color:var(--text-3)">(facultatif)</span></label><input type="tel" id="ckTel" autocomplete="tel" placeholder="06 12 34 56 78" value="'+buyer.tel+'"><span class="hint">Utilisé uniquement en cas d\'imprévu sur la commande.</span></div>'
       + '<label class="switch" style="margin:4px 0 8px"><input type="checkbox" id="ckNews" '+(buyer.news?"checked":"")+'> Recevoir la liste des pains de la semaine par e-mail</label>'
       + '<div style="display:flex;justify-content:space-between;margin-top:20px"><button class="btn btn--ghost" onclick="ckPrev()">'+icon("arrow-left",16)+' Retour</button><button class="btn btn--primary btn--lg" onclick="ckNext()">Continuer '+icon("arrow-right",16)+'</button></div>';
   } else {
@@ -1282,6 +1298,7 @@ function ckNext(){
     buyer.tel = document.getElementById("ckTel").value.trim();
     buyer.news = document.getElementById("ckNews").checked;
     if (!buyer.prenom || !buyer.nom || !buyer.email) { showToast("Merci de renseigner prénom, nom et e-mail."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(buyer.email)) { showToast("Adresse e-mail invalide (ex. marie@exemple.fr)."); document.getElementById("ckEmail").focus(); return; }
   }
   checkoutStep++;
   window.scrollTo(0,0);
@@ -1327,7 +1344,7 @@ document.getElementById("menuBtn").addEventListener("click", () => document.getE
 function closeMenu(){ document.getElementById("mobileMenu").classList.remove("open"); }
 function scrollToId(id){ closeMenu(); const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); }
 
-/* ================= VIEWS (Accueil/Boutique vs Nos farines, comme des pages distinctes) ================= */
+/* ================= VIEWS (Accueil/Boutique vs Les farines, comme des pages distinctes) ================= */
 function openCookies(){ document.getElementById("cookieScrim").classList.remove("hidden"); }
 function closeCookies(){ document.getElementById("cookieScrim").classList.add("hidden"); }
 function showLegal(tab){
@@ -1364,15 +1381,24 @@ async function loadSheet(){
   }
 }
 showView("home");
-/* Onglet "contact" : paires clé / valeur (ex. WERO_ID | 06…) */
+/* Onglet "contact" : paires clé / valeur (ex. WERO_ID | 06…, PHOTO_ACCUEIL | lien Drive) */
 async function loadContact(){
   try {
     const res = await fetch(SHEET_CONTACT_CSV_URL, { cache: "no-store" });
     if (!res.ok) return;
     const kv = {};
-    parseCSVRows(await res.text()).forEach(r => { if (r[0]) kv[r[0].trim().toUpperCase()] = (r[1] || "").trim(); });
+    /* Une clé en double avec une valeur vide n'écrase pas la valeur renseignée. */
+    parseCSVRows(await res.text()).forEach(r => { const v = (r[1] || "").trim(); if (r[0] && v) kv[r[0].trim().toUpperCase()] = v; });
     if (kv.WERO_ID) WERO_ID = kv.WERO_ID;
     if (kv.ORDER_WEBHOOK_URL) ORDER_WEBHOOK_URL = kv.ORDER_WEBHOOK_URL;
+    if (/^\S+@\S+\.\S+$/.test(kv.CONTACT_EMAIL || "")) { CONTACT_EMAIL = kv.CONTACT_EMAIL; applyContactEmail(); }
+    if (kv.PHOTO_ACCUEIL) {
+      const h = document.getElementById("heroPhoto");
+      const img = new Image();
+      img.alt = "Le pain, notre histoire";
+      img.onload = () => { h.classList.add("placeholder--photo"); h.prepend(img); };
+      img.src = driveToImg(kv.PHOTO_ACCUEIL);
+    }
     const num = v => parseFloat(String(v).replace(",", "."));
     if (!isNaN(num(kv.RATIO_DEMI))) OPT.demiRatio = num(kv.RATIO_DEMI);
     if (!isNaN(num(kv.PRIX_CUISSON_MATIN))) OPT.matin = num(kv.PRIX_CUISSON_MATIN);

@@ -1,6 +1,7 @@
 /**
  * Au Temps du Pain — réception des commandes et e-mails automatiques.
- * Script lié au Google Sheet (Extensions > Apps Script). Voir apps-script/README.md.
+ * Script lié au Google Sheet Commandes, privé (Extensions > Apps Script). Voir apps-script/README.md.
+ * Les réglages (onglet "contact") sont lus dans le Sheet catalogue, public en lecture pour le site.
  *
  * - doPost      : reçoit la commande du site, l'enregistre dans l'onglet "commandes",
  *                 envoie la validation de commande (client + boutique) et, si le paiement
@@ -13,6 +14,8 @@
 const BRAND = "Au Temps du Pain";
 const SHEET_ORDERS = "commandes";
 const SHEET_CONTACT = "contact";
+// Sheet catalogue (Produits, Farines, contact), public en lecture pour le site.
+const CATALOGUE_SPREADSHEET_ID = "1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY";
 const HEADERS = ["Référence", "Date", "Prénom", "Nom", "E-mail", "Téléphone", "Jour de remise", "Créneau",
   "Produits", "Total (€)", "Mode de paiement", "Paiement", "Transaction", "Statut commande", "Mail paiement envoyé"];
 const COL = Object.fromEntries(HEADERS.map((h, i) => [h, i + 1]));
@@ -164,7 +167,7 @@ function rowData_(sh, row) {
   return Object.fromEntries(HEADERS.map((h, i) => [h, v[i]]));
 }
 function contact_(key) {
-  const sh = SpreadsheetApp.getActive().getSheetByName(SHEET_CONTACT);
+  const sh = SpreadsheetApp.openById(CATALOGUE_SPREADSHEET_ID).getSheetByName(SHEET_CONTACT);
   if (!sh) return "";
   const r = sh.getDataRange().getValues().find(r => String(r[0]).trim().toUpperCase() === key);
   return r ? String(r[1]).trim() : "";

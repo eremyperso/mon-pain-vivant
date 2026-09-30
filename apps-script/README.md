@@ -1,16 +1,16 @@
 # Commandes et e-mails automatiques (Google Apps Script)
 
-Le script [Code.gs](Code.gs) enregistre chaque commande dans l'onglet `commandes` du Google Sheet et envoie les e-mails depuis votre compte Google.
+Le script [Code.gs](Code.gs) est lié au Google Sheet **Commandes**, privé et non partagé. Il y enregistre chaque commande (onglet `commandes`, créé automatiquement) et envoie les e-mails. Les réglages (`CONTACT_EMAIL`…) sont lus dans l'onglet `contact` du Sheet catalogue (`CATALOGUE_SPREADSHEET_ID`), public en lecture pour le site.
 
 ## Installation (une seule fois)
 
-1. Ouvrez le Google Sheet, puis **Extensions > Apps Script**. Collez le contenu de `Code.gs` et enregistrez.
+1. Ouvrez le Google Sheet **Commandes**, puis **Extensions > Apps Script**. Collez le contenu de `Code.gs` et enregistrez.
 2. **Déployer > Nouveau déploiement**, type **Application Web** :
    - Exécuter en tant que : **Moi**
    - Qui a accès : **Tout le monde**
 
    Autorisez l'accès, puis copiez l'URL qui se termine par `/exec`.
-3. Dans l'onglet `contact` du Sheet, ajoutez ces lignes (colonne A = clé, colonne B = valeur) :
+3. Dans l'onglet `contact` du Sheet **catalogue**, ajoutez ces lignes (colonne A = clé, colonne B = valeur) :
    - `ORDER_WEBHOOK_URL` : l'URL `/exec` copiée à l'étape 2
    - `CONTACT_EMAIL` : l'adresse qui reçoit une copie de chaque e-mail
 4. Menu **Déclencheurs** (icône horloge) > **Ajouter un déclencheur** :
