@@ -1171,7 +1171,7 @@ function renderCheckout(){
         ? '<span class="badge badge--success">'+icon("check",12)+' Commande enregistrée</span>'
           + '<h1 style="font:var(--type-h1);margin:20px 0 12px">Merci, votre commande est validée.</h1>'
           + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail de validation vient de vous être envoyé à '+buyer.email+'.'
-          + (buyer.pay === "surplace" ? '' : buyer.pay === "paypal" ? ' La confirmation de paiement suit dans un second e-mail.' : ' Vous recevrez la confirmation de paiement dès réception de votre virement Wero.')+'</p>'
+          + (buyer.pay === "surplace" ? '' : buyer.pay === "paypal" ? ' Il indique aussi l’état de votre paiement PayPal.' : ' Vous recevrez la confirmation de paiement dès réception de votre virement Wero.')+'</p>'
         : '<span class="badge badge--success">'+icon("check",12)+' E-mail préparé</span>'
           + '<h1 style="font:var(--type-h1);margin:20px 0 12px">Merci, votre commande est prête à être envoyée.</h1>'
           + '<p style="font:var(--type-lede);color:var(--text-2)">Un e-mail récapitulatif vient de s\'ouvrir dans votre messagerie : il ne reste plus qu\'à l\'envoyer pour confirmer votre réservation.</p>')

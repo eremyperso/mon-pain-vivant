@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Votre commande · Au Temps du Pain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F4EDE0;color:#2B1E16;font:400 15px/1.6 Karla,"Helvetica Neue",Arial,sans-serif}
+  #mail{display:block;width:100%;border:0;min-height:100vh}
+  .state{max-width:480px;margin:15vh auto 0;padding:0 16px;text-align:center}
+  .state h1{font:400 30px/1.15 "Libre Caslon Display",Georgia,serif;margin:0 0 12px}
+  .state p{color:#5E4535;margin:0 0 20px}
+  .state a{display:inline-block;padding:12px 22px;background:#8B4A24;color:#FBF7EF;text-decoration:none;font-weight:700;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="state" id="state"><p>Chargement de votre commande…</p></div>
+<iframe id="mail" title="Votre commande" hidden sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+<script>
+/* Pas de Google Analytics ici : l'URL contient un jeton d'accès à la commande. */
+const SHEET_CONTACT_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=364065721";
+
+function fail(){
+  document.getElementById("state").innerHTML =
+    '<h1>Lien invalide</h1><p>Cette commande est introuvable ou le lien est incomplet. Utilisez le lien reçu par e-mail, ou répondez à l’e-mail de commande pour nous écrire.</p><a href="/">Retour au site</a>';
+}
+
+async function webhookUrl(){
+  const res = await fetch(SHEET_CONTACT_CSV_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error("contact");
+  for (const line of (await res.text()).split(/\r?\n/)) {
+    const m = line.match(/^"?ORDER_WEBHOOK_URL"?\s*,\s*"?([^",]+)"?/i);
+    if (m) return m[1].trim();
+  }
+  throw new Error("ORDER_WEBHOOK_URL absent");
+}
+
+(async () => {
+  const q = new URLSearchParams(location.search);
+  if (!q.get("ref") || !q.get("t")) return fail();
+  try {
+    const url = new URL(await webhookUrl());
+    ["ref", "type", "t"].forEach(k => q.get(k) && url.searchParams.set(k, q.get(k)));
+    const data = await (await fetch(url)).json();
+    if (!data.ok) return fail();
+    document.title = data.subject + " · Au Temps du Pain";
+    const frame = document.getElementById("mail");
+    const fit = () => { frame.style.height = frame.contentDocument.documentElement.scrollHeight + "px"; };
+    frame.onload = () => { fit(); setTimeout(fit, 400); };
+    window.addEventListener("resize", fit);
+    frame.srcdoc = data.html;
+    frame.hidden = false;
+    document.getElementById("state").remove();
+  } catch (e) { fail(); }
+})();
+</script>
+</body>
+</html>
