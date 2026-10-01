@@ -414,11 +414,38 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 .foot-col a:hover{color:#fff}
 .foot-bottom{max-width:var(--container-max);margin:0 auto;padding:20px 32px 32px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:var(--flour-400)}
 @media(max-width:760px){.foot-bottom{padding:20px 20px 32px}}
+#cookie-notice{position:fixed;left:16px;bottom:16px;z-index:9999;max-width:360px;background:var(--umber-900);color:var(--flour-50);padding:14px 16px;border-radius:var(--radius-2);box-shadow:var(--shadow-1);display:flex;align-items:flex-start;gap:10px;font:500 13.5px/1.4 var(--font-sans)}
+#cookie-notice p{margin:0;color:var(--flour-200)}
+#cookie-notice a{color:var(--flour-50);text-decoration:underline;cursor:pointer}
+#cookie-notice .iconbtn{color:var(--flour-50);flex:none}
+#cookie-notice.hidden{display:none}
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6HZKR9WY89"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Mesure d'audience active par défaut ; respecte un refus déjà enregistré
+  var ckChoice;
+  try{ ckChoice = localStorage.getItem('cookie-consent'); }catch(e){}
+  gtag('consent', 'default', {
+    'analytics_storage': ckChoice === 'denied' ? 'denied' : 'granted',
+    'ad_storage': 'denied'
+  });
+
+  gtag('config', 'G-6HZKR9WY89');
+</script>
 </head>
 <body>
 
 <div class="topbar" id="topbarMsg">Remise des pains le lundi et le jeudi · commandes jusqu’à l’avant-veille, 18 h</div>
+
+<div id="cookie-notice" class="hidden" role="status">
+  <p>Ce site utilise des cookies de mesure d’audience. <a onclick="dismissCookieNotice();openCookies()">Gérer mes cookies</a></p>
+  <button type="button" class="iconbtn" onclick="dismissCookieNotice()" aria-label="Fermer"><span class="icon" style="--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/x.svg')"></span></button>
+</div>
 
 <header>
   <div class="headrow">
@@ -489,7 +516,7 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
   <h1 style="font:var(--type-h1);margin:0 0 24px">Informations légales</h1>
   <div class="tabs" id="legalTabs"><button class="tab" data-tab="cgv" onclick="showLegal('cgv')">CGV</button><button class="tab" data-tab="rgpd" onclick="showLegal('rgpd')">Confidentialité</button><button class="tab" data-tab="mentions" onclick="showLegal('mentions')">Mentions légales</button></div>
   <div class="legal" data-panel="cgv"><p>Dernière mise à jour : <span class="js-date"></span>. Les présentes conditions générales de vente (CGV) s’appliquent à toute commande passée sur le site <b>autantdupain.eremy.fr</b>. Passer commande vaut acceptation des CGV en vigueur au jour de la commande.</p><h3>1. Vendeur</h3><p><span class="js-brand"></span>. Contact : <a class="js-mail"></a>.</p><h3>2. Produits</h3><p>Je propose des pains au levain, des douceurs, des farines et des graines, fabriqués ou conditionnés à la commande, dans la limite des quantités de chaque fournée. Les photos sont non contractuelles. La composition, les allergènes et la durée de conservation de chaque produit figurent sur sa fiche. En cas d’allergie, contactez-moi avant de commander </p><h3>3. Prix</h3><p>Les prix sont indiqués en euros. Les options (demi-pain, cuisson du matin, tranchage) sont facturées au tarif affiché sur la fiche produit au moment de la commande. Aucun frais de livraison : les produits sont remis en main propre.</p><h3>4. Commande</h3><p>La commande se fait en trois étapes : choix du jour de remise, coordonnées (prénom, nom, e-mail obligatoire, téléphone facultatif), puis choix du mode de paiement. Je vous envoie un e-mail de validation récapitulant la commande. Je peux refuser une commande en cas de rupture ou de motif légitime ; je vous en informe alors et, le cas échéant, vous rembourse.</p><h3>5. Paiement</h3><p>Trois modes sont proposés, sans saisie de numéro de carte sur le site :</p><ul><li><b>PayPal</b> : paiement depuis votre compte PayPal, sur l’interface sécurisée de PayPal. Le site ne reçoit ni ne conserve aucune donnée bancaire.</li><li><b>Wero</b> : paiement instantané depuis l’application de votre banque, au bénéficiaire et avec la référence indiqués. La commande est considérée comme payée à réception effective des fonds.</li><li><b>En main propre</b> : en espèces ou par virement lors de la remise.</li></ul><p>Je vous envoie une confirmation de paiement par e-mail dès réception et vérification du paiement.</p><h3>6. Modification et annulation</h3><p>Vous pouvez modifier ou annuler votre commande <b>jusqu’à l’avant-veille du jour de remise, 18 h</b> (samedi pour le lundi, mardi pour le jeudi), en répondant à l’e-mail de validation. Ce délai correspond au rafraîchi du levain et à la pousse de la pâte. Une commande annulée dans ce délai et déjà réglée est intégralement remboursée par le même moyen de paiement, sous 14 jours au plus. Passé ce délai, la commande est due.</p><h3>7. Droit de rétractation</h3><p>Conformément à l’article L221-28 du Code de la consommation, le droit de rétractation ne s’applique pas aux biens susceptibles de se détériorer ou de se périmer rapidement, ni aux biens confectionnés selon les spécifications du consommateur : les pains et douceurs sont concernés. Pour les farines et graines non ouvertes, vous disposez de 14 jours à compter de la remise pour vous rétracter en m’écrivant à <a class="js-mail"></a>.</p><h3>8. Remise des produits</h3><p>Remise en main propre le lundi ou le jeudi choisi lors de la commande, à l’adresse et aux horaires confirmés par e-mail. Aucune livraison à domicile. Une commande non retirée le jour prévu, sans prévenir, reste due et ne peut être conservée au-delà de la journée.</p><h3>9. Réclamations</h3><p>Toute réclamation (produit manquant, non conforme) est à m’adresser le jour de la remise à <a class="js-mail"></a> : je recherche avec vous une solution amiable. Les garanties légales de conformité et des vices cachés s’appliquent. Les présentes CGV sont soumises au droit français.</p></div>
-  <div class="legal" data-panel="rgpd"><p>Dernière mise à jour : <span class="js-date"></span>. Cette page explique quelles données je collecte lorsque vous commandez sur ce site, pourquoi, et quels sont vos droits, conformément au Règlement général sur la protection des données (RGPD).</p><h3>Responsable du traitement</h3><p><span class="js-brand"></span>. Contact : <a class="js-mail"></a>.</p><h3>Données collectées et utilisation</h3><ul><li><b>Pour traiter votre commande</b> : prénom, nom, e-mail, jour de remise et produits commandés. Le <b>téléphone est facultatif</b> et ne sert qu’en cas d’imprévu.</li><li><b>Pour vous envoyer les e-mails</b> de validation de commande et de confirmation de paiement : votre e-mail.</li><li><b>Pour le suivi des paiements</b> : montant, référence, mode de paiement et, pour PayPal, l’identifiant de transaction. Aucune donnée bancaire ne transite par le site.</li><li><b>Liste des pains de la semaine</b>, uniquement si vous cochez la case : votre e-mail, jusqu’à votre désinscription.</li></ul><p>Ces données sont conservées le temps nécessaire au suivi des commandes et à la tenue de mes comptes. <b>Aucune donnée personnelle n’est vendue, louée ni cédée</b>, ni utilisée à des fins publicitaires.</p><h3>Destinataires et sous-traitants</h3><p>Vos données ne sont accessibles qu’à moi et aux services techniques nécessaires au fonctionnement du site :</p><ul><li><b>Google</b> (Google Sheets, Apps Script) : enregistrement des commandes.</li><li><b>Brevo</b> (France) : envoi des e-mails de commande, données hébergées dans l’Union européenne.</li><li><b>PayPal</b> : paiement en ligne, si vous choisissez ce mode. PayPal traite vos données de compte et de paiement selon sa propre <a href="https://www.paypal.com/fr/legalhub/privacy-full" target="_blank" rel="noopener">politique de confidentialité</a> ; son module n’est chargé qu’à l’étape de paiement.</li><li><b>Votre banque, via Wero</b> : paiement instantané, si vous choisissez ce mode.</li><li><b>GitHub</b> : hébergement du site (journaux techniques de connexion).</li></ul><h3>Vos droits</h3><p>Vous pouvez à tout moment accéder à vos données, les faire corriger ou supprimer, et vous désinscrire de la liste des pains de la semaine. Écrivez-moi simplement à <a class="js-mail"></a> : je vous réponds sous un mois au plus.</p><h3>Cookies</h3><p>Ce site ne dépose <b>aucun cookie publicitaire ni de mesure d’audience</b>. Le panier est conservé uniquement en mémoire, le temps de votre visite.</p><ul><li><b>PayPal</b> : si vous choisissez PayPal à l’étape de paiement, son module peut déposer des cookies nécessaires au paiement et à la prévention de la fraude. Il n’est jamais chargé avant ce choix.</li><li><b>Google Fonts et images Google Drive</b> : l’affichage des polices et des photos transmet votre adresse IP à Google.</li></ul><p>Vous pouvez supprimer les cookies à tout moment depuis les réglages de votre navigateur.</p><div style="margin-top:8px"><button class="btn btn--secondary" onclick="openCookies()">Gérer mes cookies</button></div></div>
+  <div class="legal" data-panel="rgpd"><p>Dernière mise à jour : <span class="js-date"></span>. Cette page explique quelles données je collecte lorsque vous commandez sur ce site, pourquoi, et quels sont vos droits, conformément au Règlement général sur la protection des données (RGPD).</p><h3>Responsable du traitement</h3><p><span class="js-brand"></span>. Contact : <a class="js-mail"></a>.</p><h3>Données collectées et utilisation</h3><ul><li><b>Pour traiter votre commande</b> : prénom, nom, e-mail, jour de remise et produits commandés. Le <b>téléphone est facultatif</b> et ne sert qu’en cas d’imprévu.</li><li><b>Pour vous envoyer les e-mails</b> de validation de commande et de confirmation de paiement : votre e-mail.</li><li><b>Pour le suivi des paiements</b> : montant, référence, mode de paiement et, pour PayPal, l’identifiant de transaction. Aucune donnée bancaire ne transite par le site.</li><li><b>Liste des pains de la semaine</b>, uniquement si vous cochez la case : votre e-mail, jusqu’à votre désinscription.</li></ul><p>Ces données sont conservées le temps nécessaire au suivi des commandes et à la tenue de mes comptes. <b>Aucune donnée personnelle n’est vendue, louée ni cédée</b>, ni utilisée à des fins publicitaires.</p><h3>Destinataires et sous-traitants</h3><p>Vos données ne sont accessibles qu’à moi et aux services techniques nécessaires au fonctionnement du site :</p><ul><li><b>Google</b> (Google Sheets, Apps Script) : enregistrement des commandes.</li><li><b>Brevo</b> (France) : envoi des e-mails de commande, données hébergées dans l’Union européenne.</li><li><b>PayPal</b> : paiement en ligne, si vous choisissez ce mode. PayPal traite vos données de compte et de paiement selon sa propre <a href="https://www.paypal.com/fr/legalhub/privacy-full" target="_blank" rel="noopener">politique de confidentialité</a> ; son module n’est chargé qu’à l’étape de paiement.</li><li><b>Votre banque, via Wero</b> : paiement instantané, si vous choisissez ce mode.</li><li><b>GitHub</b> : hébergement du site (journaux techniques de connexion).</li></ul><h3>Vos droits</h3><p>Vous pouvez à tout moment accéder à vos données, les faire corriger ou supprimer, et vous désinscrire de la liste des pains de la semaine. Écrivez-moi simplement à <a class="js-mail"></a> : je vous réponds sous un mois au plus.</p><h3>Cookies</h3><p>Ce site ne dépose <b>aucun cookie publicitaire</b>. Le panier est conservé uniquement en mémoire, le temps de votre visite.</p><ul><li><b>Mesure d’audience (Google Analytics)</b> : uniquement si vous l’autorisez dans « Gérer mes cookies ». Permet de connaître la fréquentation du site (pages vues, provenance, durée de visite).</li><li><b>PayPal</b> : si vous choisissez PayPal à l’étape de paiement, son module peut déposer des cookies nécessaires au paiement et à la prévention de la fraude. Il n’est jamais chargé avant ce choix.</li><li><b>Google Fonts et images Google Drive</b> : l’affichage des polices et des photos transmet votre adresse IP à Google.</li></ul><p>Vous pouvez supprimer les cookies à tout moment depuis les réglages de votre navigateur.</p><div style="margin-top:8px"><button class="btn btn--secondary" onclick="openCookies()">Gérer mes cookies</button></div></div>
   <div class="legal" data-panel="mentions"><h3>Éditeur du site</h3><p><span class="js-brand"></span> · Contact : <a class="js-mail"></a>. Direction de la publication : <span class="js-brand"></span>.</p><h3>Activité</h3><p>Fabrication artisanale de pains au levain naturel. Les informations sur les allergènes, conformes au règlement (UE) n° 1169/2011, figurent sur chaque fiche produit. En cas de doute, contactez-moi avant de commander.</p><h3>Hébergeur</h3><p>GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis · <a href="https://github.com" target="_blank" rel="noopener">github.com</a>.</p><h3>Prestataires</h3><p>Paiement : PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 boulevard Royal, L-2449 Luxembourg. E-mails : Brevo (Sendinblue SAS), 106 boulevard Haussmann, 75008 Paris. Données de commande : Google Ireland Ltd, Gordon House, Barrow Street, Dublin 4, Irlande.</p><h3>Propriété intellectuelle</h3><p>Les textes, photos et le logo de ce site sont la propriété de <span class="js-brand"></span>. Toute reproduction sans autorisation est interdite.</p></div>
 </div>
 
@@ -564,8 +591,9 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
   <div class="dialog" role="dialog" aria-modal="true" aria-label="Vos choix de cookies">
     <div class="dialog__head"><h2 class="dialog__title">Vos choix de cookies</h2><button class="iconbtn" onclick="closeCookies()" aria-label="Fermer"><span class="icon" style="--ic:url('https://unpkg.com/lucide-static@0.469.0/icons/x.svg')"></span></button></div>
     <div class="dialog__body">
-      <p style="margin-top:0">Ce site ne dépose aucun cookie publicitaire ni de mesure d’audience : il n’y a rien à accepter ni à refuser.</p>
+      <p style="margin-top:0">Ce site ne dépose aucun cookie publicitaire. Vous pouvez choisir d’autoriser ou non la mesure d’audience (Google Analytics).</p>
       <div class="ck-row"><div><b>Nécessaires</b><small>Panier et commande, conservés le temps de votre visite.</small></div><span>Toujours actifs</span></div>
+      <div class="ck-row"><div><b>Mesure d’audience (Google Analytics)</b><small>Statistiques de visites anonymisées, pour comprendre la fréquentation du site.</small></div><label class="switch"><input type="checkbox" id="ckAnalytics" onchange="setAnalyticsConsent(this.checked)"></label></div>
       <div class="ck-row"><div><b>Paiement PayPal</b><small>Chargé uniquement si vous choisissez PayPal à l’étape de paiement.</small></div><span>Sur demande</span></div>
     </div>
     <div class="dialog__foot"><button class="btn btn--ghost" onclick="closeCookies();showLegal('rgpd')">Politique de confidentialité</button><button class="btn btn--primary" onclick="closeCookies()">Fermer</button></div>
@@ -1326,6 +1354,15 @@ function ckSubmit(){
   checkoutDone = true;
   window.scrollTo(0,0);
   renderCheckout();
+  trackVirtualPageview('/commande/confirmation', 'Commande confirmée');
+  if(window.gtag){
+    gtag('event', 'purchase', {
+      transaction_id: buyer.ref || String(Date.now()),
+      value: cartTotal(),
+      currency: 'EUR',
+      items: Object.values(cart).map(i => ({ item_name: lineName(i), quantity: i.qty, price: i.unit }))
+    });
+  }
 }
 
 /* ================= TOAST ================= */
@@ -1345,12 +1382,50 @@ function closeMenu(){ document.getElementById("mobileMenu").classList.remove("op
 function scrollToId(id){ closeMenu(); const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); }
 
 /* ================= VIEWS (Accueil/Boutique vs Les farines, comme des pages distinctes) ================= */
-function openCookies(){ document.getElementById("cookieScrim").classList.remove("hidden"); }
-function closeCookies(){ document.getElementById("cookieScrim").classList.add("hidden"); }
+function openCookies(){
+  var choice = localStorage.getItem("cookie-consent");
+  document.getElementById("ckAnalytics").checked = (choice !== "denied");
+  document.getElementById("cookieScrim").classList.remove("hidden");
+}
+function closeCookies(){
+  document.getElementById("cookieScrim").classList.add("hidden");
+}
+function setAnalyticsConsent(granted){
+  try{
+    localStorage.setItem("cookie-consent", granted ? "granted" : "denied");
+    if(window.gtag) gtag("consent","update",{ analytics_storage: granted ? "granted" : "denied" });
+  }catch(e){}
+}
+function dismissCookieNotice(){
+  try{ localStorage.setItem("cookie-notice-seen","1"); }catch(e){}
+  document.getElementById("cookie-notice").classList.add("hidden");
+}
+document.addEventListener("DOMContentLoaded", function(){
+  try{ if(!localStorage.getItem("cookie-notice-seen")) document.getElementById("cookie-notice").classList.remove("hidden"); }catch(e){}
+});
+var GA_VIEWS = {
+  home: {path:"/", title:"Accueil"},
+  farines: {path:"/farines", title:"Les farines"},
+  checkout: {path:"/commande", title:"Commande"},
+  livraison: {path:"/remise-en-main-propre", title:"Remise en main propre"},
+  produit: {path:"/produit", title:"Fiche produit"}
+};
+var GA_LEGAL_TABS = {
+  cgv: {path:"/informations-legales/cgv", title:"CGV"},
+  rgpd: {path:"/informations-legales/confidentialite", title:"Politique de confidentialité"},
+  mentions: {path:"/informations-legales/mentions-legales", title:"Mentions légales"}
+};
+var _gaStarted = false;
+function trackVirtualPageview(path, title){
+  if(!window.gtag) return;
+  gtag('event', 'page_view', { page_title: title, page_path: path, page_location: location.origin + path });
+}
 function showLegal(tab){
   showView("legal");
   document.querySelectorAll("#legalTabs .tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.querySelectorAll("#view-legal .legal").forEach(d => d.style.display = d.dataset.panel === tab ? "" : "none");
+  var t = GA_LEGAL_TABS[tab];
+  if(t) trackVirtualPageview(t.path, t.title);
 }
 function showView(name){
   document.getElementById("view-home").style.display = name === "home" ? "" : "none";
@@ -1362,6 +1437,11 @@ function showView(name){
   document.querySelectorAll("#mainNav a[data-view]").forEach(a => a.classList.toggle("active", a.getAttribute("data-view") === name));
   window.scrollTo(0, 0);
   closeMenu();
+  if(_gaStarted){
+    var v = GA_VIEWS[name];
+    if(v) trackVirtualPageview(v.path, v.title);
+  }
+  _gaStarted = true;
 }
 
 /* ================= LOAD SHEET ================= */
