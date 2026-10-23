@@ -510,7 +510,10 @@ function contacts_() {
   return CONTACTS_;
 }
 function shopEmail_() { return contacts_().CONTACT_EMAIL || Session.getEffectiveUser().getEmail(); }
-function adminEmail_() { return contacts_().ADMIN_EMAIL || shopEmail_(); }
+/** Propriété de script ADMIN_EMAIL (privée) en priorité : l'onglet contact est public. */
+function adminEmail_() {
+  return PropertiesService.getScriptProperties().getProperty("ADMIN_EMAIL") || contacts_().ADMIN_EMAIL || shopEmail_();
+}
 
 /** Jour de remise lisible : texte tel qu'envoyé par le site, ou date convertie par Sheets (anciennes lignes). */
 function jour_(v) {

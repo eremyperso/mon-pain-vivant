@@ -15,14 +15,14 @@ Les e-mails sont envoyés en HTML aux couleurs du site, avec une version texte d
 3. Dans l'onglet `contact` du Sheet **catalogue**, ajoutez ces lignes (colonne A = clé, colonne B = valeur) :
    - `ORDER_WEBHOOK_URL` : l'URL `/exec` copiée à l'étape 2
    - `CONTACT_EMAIL` : l'adresse affichée aux clients ; leurs réponses aux e-mails arrivent ici
-   - `ADMIN_EMAIL` : l'adresse qui reçoit l'alerte « Nouvelle commande », par exemple un alias dédié comme `gestion@autantdupain.eremy.fr`. L'alias doit exister chez l'hébergeur du domaine et rediriger vers votre boîte. Si la ligne est absente, l'alerte part vers `CONTACT_EMAIL`.
+   - `ADMIN_EMAIL` : l'adresse qui reçoit l'alerte « Nouvelle commande », par exemple un alias dédié comme `gestion@autantdupain.eremy.fr`. L'alias doit exister chez l'hébergeur du domaine et rediriger vers votre boîte. Cet onglet étant public, préférez la propriété de script `ADMIN_EMAIL` (étape 5) pour une adresse personnelle : elle est prioritaire. Si aucune des deux n'est définie, l'alerte part vers `CONTACT_EMAIL`.
    - `ADRESSE_REMISE` (facultatif) : l'adresse de remise, rappelée dans l'e-mail « Commande prête »
    - `WERO_ID` (déjà utilisé par le site) : rappelé dans l'e-mail de commande tant que le virement Wero n'est pas reçu
 4. Menu **Déclencheurs** (icône horloge) > **Ajouter un déclencheur** :
    - Fonction : `onEditPaiement`
    - Source : **Depuis la feuille de calcul**
    - Type : **Lors de la modification**
-5. Facultatif, pour que les paiements PayPal soient vérifiés automatiquement : **Paramètres du projet > Propriétés du script**. Ajoutez `PAYPAL_CLIENT_ID` et `PAYPAL_SECRET`, et pour les tests `PAYPAL_SANDBOX_CLIENT_ID` et `PAYPAL_SANDBOX_SECRET`.
+5. Facultatif, pour que les paiements PayPal soient vérifiés automatiquement : **Paramètres du projet > Propriétés du script**. Ajoutez `PAYPAL_CLIENT_ID` et `PAYPAL_SECRET`, et pour les tests `PAYPAL_SANDBOX_CLIENT_ID` et `PAYPAL_SANDBOX_SECRET`. Au même endroit, `ADMIN_EMAIL` reçoit l'alerte « Nouvelle commande » sans que l'adresse soit visible dans le Sheet public.
 
 Chaque modification de `Code.gs` doit être redéployée : **Gérer les déploiements > Modifier > Nouvelle version**. L'URL reste la même.
 
