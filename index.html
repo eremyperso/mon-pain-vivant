@@ -420,6 +420,52 @@ footer{background:var(--surface-inverse);color:var(--flour-200);margin-top:96px}
 #cookie-notice .iconbtn{color:var(--flour-50);flex:none}
 #cookie-notice.hidden{display:none}
 </style>
+<script>
+/* ============ THÈMES D'AMBIANCE ============
+   La clé THEME de l'onglet "contact" du Sheet choisit le thème (ex. halloween).
+   Chaque thème = themes/<nom>.css (couleurs + habillage) + themes/<nom>.js (décors animés, optionnel)
+   + un dossier themes/<nom>/ (décors, favicon). Pour ajouter un thème (ex. noel) :
+   créer ces fichiers puis l'ajouter à SITE_THEMES. */
+const SITE_THEMES = { halloween: { css: "themes/halloween.css", js: "themes/halloween.js", favicon: "themes/halloween/favicon/favicon.svg" } };
+window.SITE_THEME_MODULES = window.SITE_THEME_MODULES || {};
+let activeTheme = null;
+function whenDomReady(fn){ document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn(); }
+function applyTheme(name){
+  name = String(name || "").trim().toLowerCase();
+  const t = Object.prototype.hasOwnProperty.call(SITE_THEMES, name) ? SITE_THEMES[name] : null;
+  const root = document.documentElement;
+  let link = document.getElementById("seasonal-theme-css");
+  let icon = document.getElementById("seasonal-favicon");
+  if (activeTheme && activeTheme !== name) {
+    const old = SITE_THEME_MODULES[activeTheme];
+    if (old) whenDomReady(() => old.unmount());
+  }
+  activeTheme = t ? name : null;
+  if (!t) {
+    root.removeAttribute("data-theme");
+    if (link) link.remove();
+    if (icon) icon.remove();
+  } else {
+    root.setAttribute("data-theme", name);
+    if (!link) { link = document.createElement("link"); link.id = "seasonal-theme-css"; link.rel = "stylesheet"; document.head.appendChild(link); }
+    if (link.getAttribute("href") !== t.css) link.setAttribute("href", t.css);
+    if (!icon) { icon = document.createElement("link"); icon.id = "seasonal-favicon"; icon.rel = "icon"; icon.type = "image/svg+xml"; document.head.appendChild(icon); }
+    icon.setAttribute("href", t.favicon);
+    if (t.js) {
+      const mount = () => whenDomReady(() => { if (activeTheme === name && SITE_THEME_MODULES[name]) SITE_THEME_MODULES[name].mount(); });
+      if (SITE_THEME_MODULES[name]) mount();
+      else if (!document.getElementById("seasonal-theme-js-" + name)) {
+        const s = document.createElement("script");
+        s.id = "seasonal-theme-js-" + name; s.src = t.js; s.onload = mount;
+        document.head.appendChild(s);
+      }
+    }
+  }
+  try { t ? localStorage.setItem("site-theme", name) : localStorage.removeItem("site-theme"); } catch (e) {}
+}
+/* Dernier thème connu appliqué tout de suite, pour éviter un flash avant la lecture du Sheet. */
+try { applyTheme(localStorage.getItem("site-theme")); } catch (e) {}
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HZKR9WY89"></script>
 <script>
@@ -1469,15 +1515,18 @@ async function loadContact(){
     const kv = {};
     /* Une clé en double avec une valeur vide n'écrase pas la valeur renseignée. */
     parseCSVRows(await res.text()).forEach(r => { const v = (r[1] || "").trim(); if (r[0] && v) kv[r[0].trim().toUpperCase()] = v; });
+    applyTheme(kv.THEME);
     if (kv.WERO_ID) WERO_ID = kv.WERO_ID;
     if (kv.ORDER_WEBHOOK_URL) ORDER_WEBHOOK_URL = kv.ORDER_WEBHOOK_URL;
     if (/^\S+@\S+\.\S+$/.test(kv.CONTACT_EMAIL || "")) { CONTACT_EMAIL = kv.CONTACT_EMAIL; applyContactEmail(); }
-    if (kv.PHOTO_ACCUEIL) {
+    const photoAccueil = kv.PHOTO_ACCUEIL;
+    if (photoAccueil) {
       const h = document.getElementById("heroPhoto");
       const img = new Image();
+      img.referrerPolicy = "no-referrer"; /* comme les autres images Drive : Google refuse certains referrers (ex. localhost) */
       img.alt = "Le pain, notre histoire";
       img.onload = () => { h.classList.add("placeholder--photo"); h.prepend(img); };
-      img.src = driveToImg(kv.PHOTO_ACCUEIL);
+      img.src = driveToImg(photoAccueil);
     }
     const num = v => parseFloat(String(v).replace(",", "."));
     if (!isNaN(num(kv.RATIO_DEMI))) OPT.demiRatio = num(kv.RATIO_DEMI);
