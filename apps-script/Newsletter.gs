@@ -405,9 +405,9 @@ function campaignText_(m) {
     .concat(m.links.unsub ? ["Se désinscrire : " + m.links.unsub] : []).join("\n");
 }
 
-/** Version navigateur d'une campagne (lettre.html), sans personnalisation : ?action=lettre&c=ID&t=jeton */
+/** Version navigateur d'une campagne (lettre.html), sans personnalisation : ?action=lettre&id=ID&t=jeton */
 function campaignView_(p) {
-  const id = String(p.c || "");
+  const id = String(p.id || "");
   if (!id || p.t !== token_("lettre:" + id)) return { ok: false };
   const sh = campaignsSheet_(), ids = sh.getRange(1, 1, sh.getLastRow(), 1).getValues().map(r => String(r[0]).trim());
   const row = ids.indexOf(id) + 1;

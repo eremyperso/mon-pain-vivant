@@ -44,7 +44,7 @@ async function webhookUrl(){
   try {
     const url = new URL(await webhookUrl());
     url.searchParams.set("action", "lettre");
-    url.searchParams.set("c", q.get("c"));
+    url.searchParams.set("id", q.get("c")); /* "c" est refusé par Apps Script (erreur 400) */
     url.searchParams.set("t", q.get("t"));
     const data = await (await fetch(url)).json();
     if (!data.ok) return fail();
