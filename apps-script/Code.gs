@@ -10,6 +10,7 @@
  *                    Chaque notification n'est envoyée qu'une fois (colonne "Notifications").
  * - doGet          : version navigateur d'un e-mail, pour la page commande.html du site (jeton signé).
  * - Envoi : via Brevo si la propriété BREVO_API_KEY existe, sinon via Gmail (MailApp).
+ * - Lettre d'information (abonnés, campagnes programmées, désinscription) : voir Newsletter.gs.
  */
 
 const BRAND = "Au Temps du Pain";
@@ -31,6 +32,8 @@ const STATUS_EVENTS = ["prete", "remise", "annulee"];
 /* ================= Points d'entrée ================= */
 
 function doPost(e) {
+  // Désinscription en un clic depuis la messagerie (en-tête List-Unsubscribe-Post, RFC 8058).
+  if (e.parameter && e.parameter.action === "desinscription") return json_(newsletterAction_(e.parameter));
   const o = JSON.parse(e.postData.contents);
   const lock = LockService.getScriptLock();
   lock.waitLock(20000);
@@ -57,6 +60,8 @@ function doPost(e) {
     // Texte brut, sinon Sheets convertit "lundi 6 octobre 2026" en date.
     sh.getRange(row, head.indexOf("Jour de remise") + 1).setNumberFormat("@");
     sh.getRange(row, 1, 1, head.length).setValues([head.map(h => h in rec ? rec[h] : "")]);
+    // Case « Recevoir la liste des pains de la semaine » cochée : inscription à la lettre.
+    if (o.news) safely_("inscription à la lettre", () => subscribe_(o.email, o.prenom, "commande " + o.ref));
     SpreadsheetApp.flush();
     token_(o.ref); // crée VIEW_SECRET sous verrou au premier appel
   } finally {
@@ -117,6 +122,8 @@ function envoyerPaiementsEnAttente() {
 /** Version navigateur d'un e-mail client : ?ref=CMD-…&type=commande&t=jeton */
 function doGet(e) {
   const p = (e && e.parameter) || {};
+  if (p.action === "desinscription" || p.action === "reinscription") return json_(newsletterAction_(p));
+  if (p.action === "lettre") return json_(campaignView_(p));
   const sh = ordersSheet_();
   const row = p.ref ? findRow_(sh, p.ref) : 0;
   if (!row || !p.t || p.t !== token_(p.ref)) return json_({ ok: false });
@@ -316,7 +323,7 @@ function doc_(title, preheader, rows, browser) {
     + '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light">'
     + (browser ? '<base target="_blank">' : "") + "<title>" + esc_(title) + "</title>"
     + '<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">'
-    + "<style>body{margin:0;padding:0}@media (max-width:620px){.card{padding:24px 18px !important}.h1{font-size:22px !important}}</style></head>"
+    + "<style>body{margin:0;padding:0}@media (max-width:620px){.card{padding:24px 18px !important}.h1{font-size:22px !important}.col{display:block !important;width:100% !important;box-sizing:border-box}}</style></head>"
     + '<body style="margin:0;padding:0;background:' + C.bg + '">'
     + '<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">' + esc_(preheader) + "&#8203;&nbsp;".repeat(40) + "</div>"
     + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' + C.bg + '"><tr><td align="center" style="padding:16px 12px 32px">'
@@ -373,7 +380,7 @@ function items_(d) {
 
 /* ================= Envoi ================= */
 
-/** Brevo (API transactionnelle) si BREVO_API_KEY est défini, sinon Gmail. */
+/** Brevo (API transactionnelle) si BREVO_API_KEY est défini, sinon Gmail. o.headers et o.tags : Brevo seulement. */
 function sendMail_(o) {
   const p = PropertiesService.getScriptProperties();
   const key = p.getProperty("BREVO_API_KEY");
@@ -387,7 +394,7 @@ function sendMail_(o) {
     payload: JSON.stringify({
       sender: { name: BRAND, email: p.getProperty("BREVO_SENDER") || "commandes@autantdupain.eremy.fr" },
       to: [{ email: o.to }], replyTo: { email: o.replyTo },
-      subject: o.subject, htmlContent: o.html, textContent: o.text
+      subject: o.subject, htmlContent: o.html, textContent: o.text, headers: o.headers, tags: o.tags
     })
   });
   if (res.getResponseCode() >= 300) throw new Error("Brevo " + res.getResponseCode() + " : " + res.getContentText());

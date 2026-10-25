@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Désinscription · Au Temps du Pain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F4EDE0;color:#2B1E16;font:400 15px/1.6 Karla,"Helvetica Neue",Arial,sans-serif}
+  .state{max-width:480px;margin:15vh auto 0;padding:0 16px;text-align:center}
+  .state h1{font:400 30px/1.15 "Libre Caslon Display",Georgia,serif;margin:0 0 12px}
+  .state p{color:#5E4535;margin:0 0 20px}
+  .state a,.state button{display:inline-block;margin:4px;padding:12px 22px;background:#8B4A24;color:#FBF7EF;text-decoration:none;font:700 15px Karla,Arial,sans-serif;border:0;border-radius:2px;cursor:pointer}
+  .state .ghost{background:none;color:#8B4A24;box-shadow:inset 0 0 0 1.5px #8B4A24}
+</style>
+</head>
+<body>
+<div class="state" id="state"><p>Désinscription en cours…</p></div>
+<script>
+/* Pas de Google Analytics ici : l'URL contient l'adresse e-mail et un jeton. */
+const SHEET_CONTACT_CSV_URL = "https://docs.google.com/spreadsheets/d/1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY/export?format=csv&gid=364065721";
+const q = new URLSearchParams(location.search);
+const box = document.getElementById("state");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+function fail(){
+  box.innerHTML = '<h1>Lien invalide</h1><p>Ce lien de désinscription est incomplet ou a expiré. Répondez simplement à la lettre reçue en écrivant « désinscription » : je vous retire de la liste.</p><a href="/">Retour au site</a>';
+}
+
+async function webhookUrl(){
+  const res = await fetch(SHEET_CONTACT_CSV_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error("contact");
+  for (const line of (await res.text()).split(/\r?\n/)) {
+    const m = line.match(/^"?ORDER_WEBHOOK_URL"?\s*,\s*"?([^",]+)"?/i);
+    if (m) return m[1].trim();
+  }
+  throw new Error("ORDER_WEBHOOK_URL absent");
+}
+
+async function run(action){
+  if (!q.get("e") || !q.get("t")) return fail();
+  try {
+    const url = new URL(await webhookUrl());
+    url.searchParams.set("action", action);
+    url.searchParams.set("e", q.get("e"));
+    url.searchParams.set("t", q.get("t"));
+    const data = await (await fetch(url)).json();
+    if (!data.ok) return fail();
+    const mail = "<b>" + esc(q.get("e")) + "</b>";
+    box.innerHTML = action === "desinscription"
+      ? '<h1>Vous êtes désinscrit(e)</h1><p>L’adresse ' + mail + ' ne recevra plus la liste des pains de la semaine. Les e-mails liés à vos commandes continueront d’arriver normalement.</p>'
+        + '<button class="ghost" onclick="run(\'reinscription\')">Je me suis trompé(e), me réinscrire</button><a href="/">Retour au site</a>'
+      : '<h1>C’est noté, merci !</h1><p>L’adresse ' + mail + ' recevra de nouveau la liste des pains de la semaine.</p><a href="/">Voir les pains de la semaine</a>';
+  } catch (e) { fail(); }
+}
+run("desinscription");
+</script>
+</body>
+</html>
