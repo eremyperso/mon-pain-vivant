@@ -22,7 +22,7 @@ const SHEET_CONTACT = "contact";
 const CATALOGUE_SPREADSHEET_ID = "1n7WGoY4z922pAjxOYDWSpoD3d9VRYOhBBu9G-tnf-FY";
 const HEADERS = ["Référence", "Date", "Prénom", "Nom", "E-mail", "Téléphone", "Jour de remise", "Créneau",
   "Produits", "Total (€)", "Mode de paiement", "Paiement", "Transaction", "Statut commande", "Mail paiement envoyé",
-  "Notifications"];
+  "Notifications", "Lettre"];
 
 // Clé interne -> libellé écrit dans la colonne Notifications.
 const EVENTS = { commande: "commande", paye: "payé", rembourse: "remboursé", prete: "prête", remise: "remise", annulee: "annulée" };
@@ -53,7 +53,9 @@ function doPost(e) {
       "Jour de remise": o.jourLabel, "Créneau": o.creneau,
       "Produits": o.items.map(i => i.qty + " × " + i.nom + " — " + eur_(i.qty * i.prix)).join("\n"),
       "Total (€)": o.total, "Mode de paiement": payLabel_(o.pay), "Paiement": paiement, "Transaction": transaction,
-      "Statut commande": "Confirmée"
+      "Statut commande": "Confirmée",
+      // Case « Recevoir la liste des pains de la semaine » : trace du consentement, commande par commande.
+      "Lettre": o.news ? "Oui" : "Non"
     };
     const head = headers_(sh);
     row = sh.getLastRow() + 1;
@@ -61,6 +63,7 @@ function doPost(e) {
     sh.getRange(row, head.indexOf("Jour de remise") + 1).setNumberFormat("@");
     sh.getRange(row, 1, 1, head.length).setValues([head.map(h => h in rec ? rec[h] : "")]);
     // Case « Recevoir la liste des pains de la semaine » cochée : inscription à la lettre.
+    console.log("Commande " + o.ref + " · case lettre : " + (o.news ? "cochée" : "non cochée"));
     if (o.news) safely_("inscription à la lettre", () => subscribe_(o.email, o.prenom, "commande " + o.ref));
     SpreadsheetApp.flush();
     token_(o.ref); // crée VIEW_SECRET sous verrou au premier appel
@@ -475,6 +478,7 @@ function ordersSheet_() {
  * avec leurs statuts actuels, pour ne pas renvoyer d'e-mails sur d'anciennes commandes.
  */
 function ensureHeaders_(sh) {
+  if (!headers_(sh).includes("Lettre")) sh.getRange(1, sh.getLastColumn() + 1).setValue("Lettre");
   const head = headers_(sh);
   if (head.includes("Notifications")) return;
   const c = head.length + 1;
